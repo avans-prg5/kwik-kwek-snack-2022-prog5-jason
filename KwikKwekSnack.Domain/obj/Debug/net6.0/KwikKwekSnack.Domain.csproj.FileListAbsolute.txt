@@ -1,0 +1,14 @@
+C:\Users\Jason\source\repos\KwikKwekSnack\KwikKwekSnack.Domain\bin\Debug\net6.0\KwikKwekSnack.Domain.deps.json
+C:\Users\Jason\source\repos\KwikKwekSnack\KwikKwekSnack.Domain\bin\Debug\net6.0\KwikKwekSnack.Domain.runtimeconfig.json
+C:\Users\Jason\source\repos\KwikKwekSnack\KwikKwekSnack.Domain\bin\Debug\net6.0\KwikKwekSnack.Domain.dll
+C:\Users\Jason\source\repos\KwikKwekSnack\KwikKwekSnack.Domain\bin\Debug\net6.0\KwikKwekSnack.Domain.pdb
+C:\Users\Jason\source\repos\KwikKwekSnack\KwikKwekSnack.Domain\obj\Debug\net6.0\KwikKwekSnack.Domain.csproj.AssemblyReference.cache
+C:\Users\Jason\source\repos\KwikKwekSnack\KwikKwekSnack.Domain\obj\Debug\net6.0\KwikKwekSnack.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Jason\source\repos\KwikKwekSnack\KwikKwekSnack.Domain\obj\Debug\net6.0\KwikKwekSnack.Domain.AssemblyInfoInputs.cache
+C:\Users\Jason\source\repos\KwikKwekSnack\KwikKwekSnack.Domain\obj\Debug\net6.0\KwikKwekSnack.Domain.AssemblyInfo.cs
+C:\Users\Jason\source\repos\KwikKwekSnack\KwikKwekSnack.Domain\obj\Debug\net6.0\KwikKwekSnack.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Jason\source\repos\KwikKwekSnack\KwikKwekSnack.Domain\obj\Debug\net6.0\KwikKwekSnack.Domain.dll
+C:\Users\Jason\source\repos\KwikKwekSnack\KwikKwekSnack.Domain\obj\Debug\net6.0\refint\KwikKwekSnack.Domain.dll
+C:\Users\Jason\source\repos\KwikKwekSnack\KwikKwekSnack.Domain\obj\Debug\net6.0\KwikKwekSnack.Domain.pdb
+C:\Users\Jason\source\repos\KwikKwekSnack\KwikKwekSnack.Domain\obj\Debug\net6.0\KwikKwekSnack.Domain.genruntimeconfig.cache
+C:\Users\Jason\source\repos\KwikKwekSnack\KwikKwekSnack.Domain\obj\Debug\net6.0\ref\KwikKwekSnack.Domain.dll

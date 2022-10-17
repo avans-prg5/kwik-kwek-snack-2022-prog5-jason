@@ -1,0 +1,76 @@
+﻿@model KwikKwekSnack.Models.OrderViewModel
+
+@{
+    ViewData["Title"] = "AddSnack";
+}
+
+<h1>Add snack</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddSnack">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Order" />
+            <input type="hidden" asp-for="CurrentSnackOrder.Snack.Id"/>
+            <input type="hidden" asp-for="SnackOrders"/>
+            <div class="form-group">
+                <label asp-for="CurrentSnackOrder.Snack.Name" class="control-label"></label>
+                <input asp-for="CurrentSnackOrder.Snack.Name" class="form-control" />
+                <span asp-validation-for="CurrentSnackOrder.Snack.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CurrentSnackOrder.Snack.Description" class="control-label"></label>
+                <input asp-for="CurrentSnackOrder.Snack.Description" class="form-control" />
+                <span asp-validation-for="CurrentSnackOrder.Snack.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CurrentSnackOrder.Snack.StandardPrice" class="control-label"></label>
+                <input asp-for="CurrentSnackOrder.Snack.StandardPrice" class="form-control" />
+                <span asp-validation-for="CurrentSnackOrder.Snack.StandardPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CurrentSnackOrder.Snack.ImageURL" class="control-label"></label>
+                <input asp-for="CurrentSnackOrder.Snack.ImageURL" class="form-control" />
+                <span asp-validation-for="CurrentSnackOrder.Snack.ImageURL" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                @{
+                    int i = 0;
+                    if(Model.CurrentSnackOrder.AvailableExtras == null)
+                    {
+                        Model.CurrentSnackOrder.AvailableExtras = new List<AssignedExtra>();
+                    }
+
+
+                        foreach(var extra in Model.CurrentSnackOrder.AvailableExtras)
+                        {
+                            if(i++ % 3 == 0)
+                            {
+                                @:</div><div class="row">
+                            }
+                            <!-- maybe currentSnackOrder.chosenextraids -->
+                            @:<div class="col-4">
+                                <input type="checkbox"
+                                    name="CurrentSnackOrder.ChosenExtraIds"                                     
+                                    value="@extra.ExtraId"
+                                    @(Html.Raw(extra.Assigned ? "checked=\"checked\"" : "")) />
+                                @: @extra.Name
+                            @:</div>
+                        }                    
+                    }
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+
+
+    
+    <a asp-action="Create" asp-route-orderId="@Model.Order.Id">Back</a>
+    <div class="form-group">
+        <input type="submit" value="Toevoegen" class="btn btn-primary" />
+    </div>
+</div>

@@ -1,0 +1,80 @@
+﻿@model IEnumerable<KwikKwekSnack.Domain.Drink>
+@{
+    ViewData["Title"] = "CreateDrinkOrder";
+}
+
+<style>
+    .button-divs {
+        padding: 0;
+    }
+</style>
+
+
+<div class="flex-fill custom-container">
+    <h1>Selecteer een snack</h1>
+    <div class="container-fluid bg-light">
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="row offset-1">
+                @{
+                        int i = 0;
+
+                        foreach(var drink in Model)
+                        {
+                            if(i++ % 3 == 0)
+                            {
+                                @:</div><div class="row offset-1">
+                            }
+                            @:<div class="col-sm">
+                                             
+                                if(drink.ImageURL == null || drink.ImageURL == "")
+                                {
+                                     <a asp-controller="Drink" asp-action="Index">
+                                        <img src= "https://www.clker.com/cliparts/q/L/P/Y/t/6/no-image-available-md.png" class="rounded mx-auto d-block mw-100 mh-100" alt="Geen afbeelding beschikbaar"/>
+                                     </a>                                   
+                                }
+                                else
+                                {
+                                    <a asp-controller="Drink" asp-action="Index">
+                                        <img src= "@Url.Content(drink.ImageURL)" class="rounded mx-auto d-block mw-100 mh-100" alt="Geen afbeelding beschikbaar" />
+                                    </a>     
+                                }           
+                                                            
+                                @: <h2> @drink.Name </h2>                           
+                            @:</div>
+                        }                    
+                    }</div>                    
+                </div>
+                <div class="col-2 bg-secondary">
+                    <div class="d-flex justify-content-center">
+                        <p>Orders</p>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <ul>
+                            <li>list item 1</li>
+                            <li>list item 2</li>
+                            <li>list item 3</li>
+                            <li>list item 4</li>
+                            <li>list item 5</li>
+                            <li>list item 6</li>
+                            <li>list item 7</li>
+                            <li>list item 8</li>
+                            <li>list item 9</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-10 button-divs">
+                    <div class="d-flex justify-content-start">
+                        <button type="button" class="btn btn-primary">&laquo; Terug </button>
+                    </div>
+                </div>
+                <div class="col-2 bg-secondary button-divs">
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary">Volgende &raquo;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
