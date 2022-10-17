@@ -18,11 +18,13 @@ namespace KwikKwekSnackWeb.Controllers
             repo = injectedSnackRepository;
             extraRepo = injectedExtraRepo;
         }
+
         public ActionResult Index()
         {
             var model = repo.GetAll();
             return View(model);            
         }        
+
         public ActionResult Details(int? id)
         {
            if(!id.HasValue)
@@ -37,13 +39,12 @@ namespace KwikKwekSnackWeb.Controllers
            }
 
             return View(snack);
-        }
+        }        
 
-        
         public ActionResult Create()
         {
             var viewModel = new SnackViewModel();
-            PopulateExtraOptions(ref viewModel);
+            PopulateAllExtras(ref viewModel);
             return View(viewModel);
         }
         
@@ -75,9 +76,7 @@ namespace KwikKwekSnackWeb.Controllers
 
             try
             {
-                var viewModel = new SnackViewModel();
-                viewModel.Snack = repo.Get(id.Value);
-                PopulateAssignedExtras(ref viewModel);
+                var viewModel = CreateEditViewModel(id.Value);               
                 return View(viewModel);
             }
             catch
@@ -85,7 +84,15 @@ namespace KwikKwekSnackWeb.Controllers
                 return RedirectToAction("Index");
             }
         }
-        
+
+        private SnackViewModel CreateEditViewModel(int id)
+        {
+            var viewModel = new SnackViewModel();
+            viewModel.Snack = repo.Get(id);
+            PopulateAssignedExtras(ref viewModel);
+            return viewModel;
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, SnackViewModel viewModel)
@@ -95,21 +102,31 @@ namespace KwikKwekSnackWeb.Controllers
                 return NotFound();
             }
 
+            if (EditSnack(viewModel))
+            {
+                var updatedSnack = repo.Get(viewModel.Snack.Id);
+                return RedirectToAction("Details", updatedSnack);
+            }
+            return View(viewModel);
+        }
+
+        private bool EditSnack(SnackViewModel viewModel)
+        {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var updatedSnack = repo.Update(viewModel.Snack, viewModel.AvailableExtras);
-                    return RedirectToAction("Details", updatedSnack);
+                    repo.Update(viewModel.Snack, viewModel.AvailableExtras);
+                    return true;
                 }
-                return View(viewModel);
+                return false;
             }
             catch
             {
-                return View(viewModel);
+                return false;
             }
         }
-        
+
         public ActionResult Delete(int? id)
         {
             if(!id.HasValue)
@@ -132,17 +149,25 @@ namespace KwikKwekSnackWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Snack model)
         {
+            if (DeleteSnack(model))
+            {
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index", "Home");
+        }
+        private bool DeleteSnack(Snack model)
+        {
             try
             {
-                if(repo.Delete(model.Id))
+                if (repo.Delete(model.Id))
                 {
-                    return RedirectToAction("Index");
+                    return true;
                 }
-                return RedirectToAction("Index", "Home");
+                return false;
             }
             catch
             {
-                return RedirectToAction("Index", "Home");
+                return false;
             }
         }
         private void PopulateAssignedExtras(ref SnackViewModel viewModel)
@@ -161,7 +186,7 @@ namespace KwikKwekSnackWeb.Controllers
                 });
             }
         }
-        private void PopulateExtraOptions(ref SnackViewModel viewModel)
+        private void PopulateAllExtras(ref SnackViewModel viewModel)
         {
             var allExtras = extraRepo.GetAll();
             viewModel.AssignedExtras = new List<AssignedExtra>();
