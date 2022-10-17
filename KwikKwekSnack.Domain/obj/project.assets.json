@@ -10201,11 +10201,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Jason\\source\\repos\\KwikKwekSnack\\KwikKwekSnack.Domain\\KwikKwekSnack.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\Jason\\Documents\\GitHub\\kwik-kwek-snack-2022-prog5-jason\\KwikKwekSnack.Domain\\KwikKwekSnack.Domain.csproj",
       "projectName": "KwikKwekSnack.Domain",
-      "projectPath": "C:\\Users\\Jason\\source\\repos\\KwikKwekSnack\\KwikKwekSnack.Domain\\KwikKwekSnack.Domain.csproj",
+      "projectPath": "C:\\Users\\Jason\\Documents\\GitHub\\kwik-kwek-snack-2022-prog5-jason\\KwikKwekSnack.Domain\\KwikKwekSnack.Domain.csproj",
       "packagesPath": "C:\\Users\\Jason\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Jason\\source\\repos\\KwikKwekSnack\\KwikKwekSnack.Domain\\obj\\",
+      "outputPath": "C:\\Users\\Jason\\Documents\\GitHub\\kwik-kwek-snack-2022-prog5-jason\\KwikKwekSnack.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

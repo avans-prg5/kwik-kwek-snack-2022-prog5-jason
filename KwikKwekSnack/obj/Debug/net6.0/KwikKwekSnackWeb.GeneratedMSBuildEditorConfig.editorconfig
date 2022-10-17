@@ -8,113 +8,113 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = KwikKwekSnackWeb
 build_property.RootNamespace = KwikKwekSnackWeb
-build_property.ProjectDir = C:\Users\Jason\source\repos\KwikKwekSnack\KwikKwekSnack\
+build_property.ProjectDir = C:\Users\Jason\Documents\GitHub\kwik-kwek-snack-2022-prog5-jason\KwikKwekSnack\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Jason\source\repos\KwikKwekSnack\KwikKwekSnack
+build_property.MSBuildProjectDirectory = C:\Users\Jason\Documents\GitHub\kwik-kwek-snack-2022-prog5-jason\KwikKwekSnack
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/Jason/source/repos/KwikKwekSnack/KwikKwekSnack/Views/Drink/Create.cshtml]
+[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/Drink/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRHJpbmtcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jason/source/repos/KwikKwekSnack/KwikKwekSnack/Views/Drink/Delete.cshtml]
+[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/Drink/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRHJpbmtcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jason/source/repos/KwikKwekSnack/KwikKwekSnack/Views/Drink/Details.cshtml]
+[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/Drink/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRHJpbmtcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jason/source/repos/KwikKwekSnack/KwikKwekSnack/Views/Drink/Edit.cshtml]
+[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/Drink/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRHJpbmtcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jason/source/repos/KwikKwekSnack/KwikKwekSnack/Views/Drink/Index.cshtml]
+[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/Drink/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRHJpbmtcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jason/source/repos/KwikKwekSnack/KwikKwekSnack/Views/Extra/Create.cshtml]
+[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/Extra/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXh0cmFcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jason/source/repos/KwikKwekSnack/KwikKwekSnack/Views/Extra/Delete.cshtml]
+[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/Extra/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXh0cmFcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jason/source/repos/KwikKwekSnack/KwikKwekSnack/Views/Extra/Details.cshtml]
+[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/Extra/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXh0cmFcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jason/source/repos/KwikKwekSnack/KwikKwekSnack/Views/Extra/Edit.cshtml]
+[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/Extra/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXh0cmFcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jason/source/repos/KwikKwekSnack/KwikKwekSnack/Views/Extra/Index.cshtml]
+[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/Extra/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXh0cmFcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jason/source/repos/KwikKwekSnack/KwikKwekSnack/Views/Home/Index.cshtml]
+[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jason/source/repos/KwikKwekSnack/KwikKwekSnack/Views/Home/Privacy.cshtml]
+[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jason/source/repos/KwikKwekSnack/KwikKwekSnack/Views/Order/CreateDrinkOrder.cshtml]
+[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/Order/CreateDrinkOrder.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcQ3JlYXRlRHJpbmtPcmRlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jason/source/repos/KwikKwekSnack/KwikKwekSnack/Views/Order/FinalizeOrder.cshtml]
+[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/Order/FinalizeOrder.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcRmluYWxpemVPcmRlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jason/source/repos/KwikKwekSnack/KwikKwekSnack/Views/Shared/Error.cshtml]
+[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jason/source/repos/KwikKwekSnack/KwikKwekSnack/Views/Shared/_Layout.cshtml]
+[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jason/source/repos/KwikKwekSnack/KwikKwekSnack/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jason/source/repos/KwikKwekSnack/KwikKwekSnack/Views/SnackOrder/AddSnack.cshtml]
+[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/SnackOrder/AddSnack.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU25hY2tPcmRlclxBZGRTbmFjay5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jason/source/repos/KwikKwekSnack/KwikKwekSnack/Views/SnackOrder/Create.cshtml]
+[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/SnackOrder/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU25hY2tPcmRlclxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jason/source/repos/KwikKwekSnack/KwikKwekSnack/Views/Snack/Create.cshtml]
+[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/Snack/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU25hY2tcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jason/source/repos/KwikKwekSnack/KwikKwekSnack/Views/Snack/Delete.cshtml]
+[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/Snack/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU25hY2tcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jason/source/repos/KwikKwekSnack/KwikKwekSnack/Views/Snack/Details.cshtml]
+[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/Snack/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU25hY2tcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jason/source/repos/KwikKwekSnack/KwikKwekSnack/Views/Snack/Edit.cshtml]
+[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/Snack/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU25hY2tcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jason/source/repos/KwikKwekSnack/KwikKwekSnack/Views/Snack/Index.cshtml]
+[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/Snack/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU25hY2tcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jason/source/repos/KwikKwekSnack/KwikKwekSnack/Views/_ViewImports.cshtml]
+[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jason/source/repos/KwikKwekSnack/KwikKwekSnack/Views/_ViewStart.cshtml]
+[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

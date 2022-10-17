@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7uUXYgv/nZFcV7Moz3HZjTca5xw8KVDZf0XgESjHldFSn6gf7Yb0/l3+fs/BMvJdiHuOT5uDHoqDzVxFafD3cA==",
+  "dgSpecHash": "KRtsicTMo5t6Zyio84M7//qHn9ng5Mts6nAZBnc1RBJMA6elEezgDF0ndWH8gpGCEgoNnE0iWNQIfOR6+kg7aQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Jason\\source\\repos\\KwikKwekSnack\\KwikKwekSnack.Domain\\KwikKwekSnack.Domain.csproj",
+  "projectFilePath": "C:\\Users\\Jason\\Documents\\GitHub\\kwik-kwek-snack-2022-prog5-jason\\KwikKwekSnack.Domain\\KwikKwekSnack.Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Jason\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Jason\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
