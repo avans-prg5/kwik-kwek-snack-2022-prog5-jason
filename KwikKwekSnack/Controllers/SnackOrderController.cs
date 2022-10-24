@@ -15,7 +15,9 @@ namespace KwikKwekSnackWeb.Controllers
         readonly ISnackOrderRepo snackOrderRepo;
         readonly IExtraRepo extraRepo;
 
-        private static int? currentOrderId;
+        private static OrderViewModel orderViewModel;
+
+        
         public SnackOrderController(ISnackRepo injectedSnackRepository, IOrderRepo injectedOrderRepository, IExtraRepo injectedExtraRepository, ISnackOrderRepo injectedSnackOrderRepository)
         {
             snackRepo = injectedSnackRepository;
@@ -38,46 +40,41 @@ namespace KwikKwekSnackWeb.Controllers
         }
 
         // GET: SnackOrderController/Create
-        public ActionResult Create(int? orderId)
-        {    
-            Order order = new Order();
+        public ActionResult Create()
+        {
             OrderViewModel viewModel = new OrderViewModel();
-            if (orderId.HasValue)
+            if (orderViewModel == null)
             {
-                currentOrderId = orderId.Value;
-                order = orderRepo.Get(orderId.Value);                
-                viewModel.Order = order;
-                PopulateOrderList(ref viewModel);
-                PopulateSnackList(ref viewModel);                
-                return View(viewModel);
+                viewModel = CreateNewOrderViewModel();
+                orderViewModel = viewModel;
             }
-            else if(currentOrderId.HasValue)
-            {                
-                order = orderRepo.Get(currentOrderId.Value);                
-                viewModel.Order = order;
-                PopulateOrderList(ref viewModel);
-                PopulateSnackList(ref viewModel);
-                return View(viewModel);
-            }
-            CleanUpUnusedOrders();
-            order.Status = OrderStatusType.NotCreated;
-            order = orderRepo.Create(order);            
-            viewModel.Order = order;
-            viewModel.SnackOrders = new List<PartialSnackOrder>();
-            viewModel.DrinkOrders = new List<PartialDrinkOrder>();
-            currentOrderId = order.Id;
+            else
+            {
+                viewModel = orderViewModel;
+            }                    
+            
             PopulateSnackList(ref viewModel);            
             return View(viewModel);
         }
-    
+           
+        private OrderViewModel CreateNewOrderViewModel()
+        {
+            OrderViewModel newViewModel = new OrderViewModel();
+            Order order = new Order();
+            order.Status = OrderStatusType.NotCreated;
+            newViewModel.SnackOrders = new List<PartialSnackOrder>();
+            newViewModel.DrinkOrders = new List<PartialDrinkOrder>();
+            newViewModel.Order = order;
+            return newViewModel;
+        }
 
         // POST: SnackOrderController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(OrderViewModel model)
         {
-            //Next button
-            return RedirectToAction("DrinkOrderController", "Create", currentOrderId);
+            //Next button, go to drinks
+            return RedirectToAction("DrinkOrderController", "Create", orderViewModel);
         }       
 
         // GET: SnackOrderController/Delete/5
@@ -103,48 +100,66 @@ namespace KwikKwekSnackWeb.Controllers
         [HttpGet]
         public ActionResult AddSnack(int? snackId)
         {
-            if(!snackId.HasValue)
-            {
-                return NotFound();
-            }
-            if(!currentOrderId.HasValue)
+            if (orderViewModel == null)
             {
                 return RedirectToAction("Create");
-            }            
-            var snack = snackRepo.Get(snackId.Value);                   
-            OrderViewModel viewModel = new OrderViewModel();
-            viewModel.Order = orderRepo.Get(currentOrderId.Value);
-            viewModel.CurrentSnackOrder = new PartialSnackOrder { Snack = snack};
-            PopulateAvailableExtras(ref viewModel);
-            return View(viewModel);
+            }
+            if (!snackId.HasValue)
+            {
+                return NotFound();
+            }                        
+            var snack = snackRepo.Get(snackId.Value);
+            var snackOrder = new PartialSnackOrder { Snack = snack };            
+            PopulateAvailableExtras(ref snackOrder);
+            return View(snackOrder);
         }
 
         [HttpPost]
-        public ActionResult AddSnack(int SnackOrderId, OrderViewModel viewModel)
+        public ActionResult AddSnack(PartialSnackOrder viewModel)
         {
-            if(!currentOrderId.HasValue)
+            if(orderViewModel == null)
             {
                 return RedirectToAction("Index", "Home");
             }
 
             try
             {
-                var snackOrder = new SnackOrder { Snack = viewModel.CurrentSnackOrder.Snack };
-                if(viewModel.CurrentSnackOrder.ChosenExtraIds == null)
+                var snackOrder = new SnackOrder { Snack = viewModel.Snack };
+                if(viewModel.ChosenExtraIds == null)
                 {
-                    viewModel.CurrentSnackOrder.ChosenExtraIds = new List<int>();
+                    viewModel.ChosenExtraIds = new List<int>();
                 }
-                snackOrder = snackOrderRepo.Create(snackOrder, viewModel.CurrentSnackOrder.ChosenExtraIds); //TODO: werkt niet!
-                viewModel.SnackOrders.Add(viewModel.CurrentSnackOrder);
-                orderRepo.AddSnackOrder(snackOrder, currentOrderId.Value); 
+                else
+                {
+                    SetExtrasFromIds(viewModel, viewModel.ChosenExtraIds);
+                }
+                orderViewModel.SnackOrders.Add(viewModel);                
             }
             catch
             {
-
+                return RedirectToAction("Index", "Home");
             }                  
 
 
-            return RedirectToAction("Create",viewModel);
+            return RedirectToAction("Create");
+        }
+
+        private void SetExtrasFromIds(PartialSnackOrder snackOrder, List<int> extraIds)
+        {
+            snackOrder.ChosenExtras = new List<Extra>();
+            foreach(var extraId in extraIds)
+            {
+                try
+                {
+                    Extra extra = extraRepo.Get(extraId);
+                    snackOrder.ChosenExtras.Add(extra);
+                }
+                catch
+                {
+                    continue;
+                }
+            }
+
         }
 
         private void PopulateSnackList(ref OrderViewModel viewModel)
@@ -156,60 +171,16 @@ namespace KwikKwekSnackWeb.Controllers
             {                
                 viewModel.AllSnacks.Add(snack);                                
             }            
-        }
+        }       
 
-        private void PopulateOrderList(ref OrderViewModel viewModel)
+        private void PopulateAvailableExtras(ref PartialSnackOrder viewModel)
         {
-            PopulateSnackOrderList(ref viewModel);
-            PopulateDrinkOrderList(ref viewModel);                   
-        }
-
-        private void PopulateSnackOrderList(ref OrderViewModel viewModel)
-        {
-            var allSnackOrders = orderRepo.GetSnackOrders(currentOrderId.Value);
-            viewModel.SnackOrders = new List<PartialSnackOrder>();
-
-            foreach (SnackOrder snackOrder in allSnackOrders)
-            {
-                var snackOrderChosenExtras = new List<Extra>();
-                double extrasCost = 0;
-                if (snackOrder.ChosenExtras == null)
-                {
-                    snackOrder.ChosenExtras = new List<SnackOrderExtra>();
-                }
-                foreach (var extra in snackOrder.ChosenExtras)
-                {
-                    snackOrderChosenExtras.Add(new Extra()
-                    {
-                        Id = extra.ExtraId,
-                        Name = extra.Extra.Name,
-                        Price = extra.Extra.Price,
-                    });
-                    extrasCost += extra.Extra.Price;
-                }
-
-                viewModel.SnackOrders.Add(new PartialSnackOrder()
-                {
-                    Snack = snackOrder.Snack,
-                    ChosenExtras = snackOrderChosenExtras,
-                    OrderCost = snackOrder.Snack.StandardPrice + extrasCost
-                });
-            }
-        }
-        private void PopulateDrinkOrderList(ref OrderViewModel viewModel)
-        {
-            var allDrinkOrders = orderRepo.GetDrinkOrders(currentOrderId.Value);
-            viewModel.DrinkOrders = new List<PartialDrinkOrder>();
-        }
-
-        private void PopulateAvailableExtras(ref OrderViewModel viewModel)
-        {
-            var allExtrasOfSnack = snackRepo.GetExtras(viewModel.CurrentSnackOrder.Snack.Id);
-            viewModel.CurrentSnackOrder.AvailableExtras = new List<AssignedExtra>();
+            var allExtrasOfSnack = snackRepo.GetExtras(viewModel.Snack.Id);
+            viewModel.AvailableExtras = new List<AssignedExtra>();
 
             foreach (Extra extra in allExtrasOfSnack)
             {                
-                viewModel.CurrentSnackOrder.AvailableExtras.Add(new AssignedExtra()
+                viewModel.AvailableExtras.Add(new AssignedExtra()
                 {
                     ExtraId = extra.Id,
                     Name = extra.Name,

@@ -19,8 +19,8 @@ namespace KwikKwekSnack.Models
         public Drink Drink { get; set; }        
         public double OrderCost { get; set; }
         public List<AssignedExtra> AvailableExtras { get; set; } //All extras for the drink that a user can choose from.
-        public List<int> ChosenExtraIds { get; set; } //The extraIds that the user chose to add to their order. 
-        public List<Extra> ChosenExtras { get; set; } //The extras that the user chose to add to their order.
+        public List<int> ChosenExtraIds { get; set; } //The extraIds that the user chose to add to their order (for checkbox). 
+        public List<Extra> ChosenExtras { get; set; } //The extras that the user chose to add to their order (for sidebar).
     }
 
     public class PartialSnackOrder
