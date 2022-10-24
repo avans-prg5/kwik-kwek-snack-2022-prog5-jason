@@ -128,6 +128,7 @@ namespace KwikKwekSnackWeb.Controllers
                 if(viewModel.ChosenExtraIds == null)
                 {
                     viewModel.ChosenExtraIds = new List<int>();
+                    viewModel.ChosenExtras = new List<Extra>();
                 }
                 else
                 {
@@ -139,9 +140,8 @@ namespace KwikKwekSnackWeb.Controllers
             catch
             {
                 return RedirectToAction("Index", "Home");
-            }                  
-
-
+            }
+            
             return RedirectToAction("Create");
         }
 

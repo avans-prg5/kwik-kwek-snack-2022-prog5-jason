@@ -20,7 +20,7 @@ namespace KwikKwekSnackWeb.Controllers
         // GET: DrinkOrderController/Create
         public ActionResult Create()
         {
-            return View();
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: DrinkOrderController/Create
