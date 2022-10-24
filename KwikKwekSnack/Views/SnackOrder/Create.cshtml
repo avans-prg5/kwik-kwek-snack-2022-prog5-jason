@@ -70,9 +70,12 @@
                                     @{
                                         foreach (var extra in snackOrder.ChosenExtras)
                                         {
-                                            @extra.Name                                           
+                                            @extra.Name
+                                            
                                         }
-                                        @cost
+                                        <p>
+                                           € + @cost
+                                        </p>                                        
                                     }
                                     </li>
                                 }

@@ -133,6 +133,7 @@ namespace KwikKwekSnackWeb.Controllers
                 {
                     SetExtrasFromIds(viewModel, viewModel.ChosenExtraIds);
                 }
+                viewModel.OrderCost = CalculateSnackOrderPrice(viewModel);
                 orderViewModel.SnackOrders.Add(viewModel);                
             }
             catch
@@ -144,6 +145,26 @@ namespace KwikKwekSnackWeb.Controllers
             return RedirectToAction("Create");
         }
 
+        private double CalculateSnackOrderPrice(PartialSnackOrder snackOrder)
+        {
+            double price = 0;
+            price += snackOrder.Snack.StandardPrice;
+            if(snackOrder.ChosenExtras!= null)
+            {
+                foreach(var extra in snackOrder.ChosenExtras)
+                {
+                    try
+                    {
+                        price += extra.Price;
+                    }
+                    catch
+                    {
+                        continue;
+                    }                    
+                }
+            }
+            return price;
+        }
         private void SetExtrasFromIds(PartialSnackOrder snackOrder, List<int> extraIds)
         {
             snackOrder.ChosenExtras = new List<Extra>();
@@ -165,8 +186,7 @@ namespace KwikKwekSnackWeb.Controllers
         private void PopulateSnackList(ref OrderViewModel viewModel)
         {
             var allSnacks = snackRepo.GetAll();
-            viewModel.AllSnacks = new List<Snack>();
-            //var allExtras = extraRepo.GetAll();
+            viewModel.AllSnacks = new List<Snack>();            
             foreach(Snack snack in allSnacks)
             {                
                 viewModel.AllSnacks.Add(snack);                                
