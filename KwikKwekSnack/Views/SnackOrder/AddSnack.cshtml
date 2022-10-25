@@ -23,11 +23,11 @@
 				        @{
                             if(Model.Snack.ImageURL == null || Model.Snack.ImageURL == "")
 				            {				
-                                        <img src= "https://www.clker.com/cliparts/q/L/P/Y/t/6/no-image-available-md.png" class="img-fluid" style="width: 320px; height: 3620px;" alt="Geen afbeelding beschikbaar"/>									                                   
+                                <img src= "https://www.clker.com/cliparts/q/L/P/Y/t/6/no-image-available-md.png" class="img-fluid" style="width: 320px; height: auto;" alt="Geen afbeelding beschikbaar"/>									                                   
 				            }
 				            else
 				            {									
-                                        <img src= "@Url.Content(Model.Snack.ImageURL)" class="img-fluid" style="width: 320px; height: 320px;" alt="Geen afbeelding beschikbaar" />									   
+                                <img src= "@Url.Content(Model.Snack.ImageURL)" class="img-fluid" style="width: 320px; height: auto;" alt="Geen afbeelding beschikbaar" />									   
 				            }
                         }
                         </div>              

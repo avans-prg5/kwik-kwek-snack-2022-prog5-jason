@@ -30,13 +30,13 @@
 								if(snack.ImageURL == null || snack.ImageURL == "")
 								{
 									 <a asp-action="AddSnack" asp-route-snackId="@snack.Id">
-										<img src= "https://www.clker.com/cliparts/q/L/P/Y/t/6/no-image-available-md.png" class="rounded mx-auto d-block mw-25 mh-25" style="width: 180px; height: 180px;" alt="Geen afbeelding beschikbaar"/>
+										<img src= "https://www.clker.com/cliparts/q/L/P/Y/t/6/no-image-available-md.png" class="rounded mx-auto d-block mw-25 mh-25 shadow mt-2" style="width: 180px; height: 180px;" alt="Geen afbeelding beschikbaar"/>
 									 </a>                                   
 								}
 								else
 								{
 									<a asp-action="AddSnack" asp-route-snackId="@snack.Id">
-										<img src= "@Url.Content(snack.ImageURL)" class="rounded mx-auto d-block mw-25 mh-25" style="width: 180px; height: 180px;" alt="Geen afbeelding beschikbaar" />
+										<img src= "@Url.Content(snack.ImageURL)" class="rounded mx-auto d-block mw-25 mh-25 shadow mt-2" style="width: auto; height: 180px;" alt="Geen afbeelding beschikbaar" />
 									</a>     
 								}           
 															
@@ -66,18 +66,25 @@
 								{
 									double cost = snackOrder.OrderCost;
 
-									<li class="list-group-item">
-									@snackOrder.Snack.Name
-									@{
-											foreach (var extra in snackOrder.ChosenExtras)
-											{
-												var nameString = "+ " + extra.Name;												
-												@nameString                                            
-											}
-											<p>
-												€@cost
-											</p>                                        
-									}
+									<li class="list-group-item mb-2 shadow bg-body rounded">
+										<div class="row">
+											<div class="col-8 w-75 font-weight-light">
+													@snackOrder.Snack.Name
+													@{
+															foreach (var extra in snackOrder.ChosenExtras)
+															{
+																var nameString = "+ " + extra.Name;												
+																@nameString                                            
+															}
+															<p>
+																€@cost
+															</p>                                        
+													}
+												</div>
+												<div class="col">
+													<a class="text-danger font-weight-bold" asp-action="RemoveSnackOrder" asp-route-snackOrder="@snackOrder">X</a>
+												</div>		
+										</div>															
 									</li>
 								}
 							}

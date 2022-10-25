@@ -73,7 +73,10 @@ namespace KwikKwekSnack.Domain.Repositories
             {
                 availableExtras = new List<int>();
             }
-
+            if(extras == null)
+            {
+                extras = new List<int>();
+            }
             foreach (var extra in ctx.Extras)
             {
                 if (extras.Contains(extra.Id))

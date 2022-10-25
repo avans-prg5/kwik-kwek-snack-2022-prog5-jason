@@ -43,7 +43,7 @@ namespace KwikKwekSnackWeb.Controllers
 
         public ActionResult Create()
         {
-            var viewModel = new SnackViewModel();
+            var viewModel = new SnackViewModel();            
             PopulateAllExtras(ref viewModel);
             return View(viewModel);
         }
@@ -54,6 +54,7 @@ namespace KwikKwekSnackWeb.Controllers
         {
             try
             {
+                viewModel.AssignedExtras = new List<AssignedExtra>();
                 if (ModelState.IsValid)
                 {
                     var newSnack = repo.Create(viewModel.Snack, viewModel.AvailableExtras);
@@ -190,6 +191,7 @@ namespace KwikKwekSnackWeb.Controllers
         {
             var allExtras = extraRepo.GetAll();
             viewModel.AssignedExtras = new List<AssignedExtra>();
+            viewModel.AvailableExtras = new List<int>();
             foreach (Extra extra in allExtras)
             {
                 viewModel.AssignedExtras.Add(new AssignedExtra()
