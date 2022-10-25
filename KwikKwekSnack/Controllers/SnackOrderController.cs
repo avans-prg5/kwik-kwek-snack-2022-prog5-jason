@@ -10,17 +10,15 @@ namespace KwikKwekSnackWeb.Controllers
 {
     public class SnackOrderController : Controller
     {
-        readonly ISnackRepo snackRepo;        
-        readonly ISnackOrderRepo snackOrderRepo;
+        readonly ISnackRepo snackRepo;  
         readonly IExtraRepo extraRepo;
 
         private static OrderViewModel orderViewModel;
         
-        public SnackOrderController(ISnackRepo injectedSnackRepository, IExtraRepo injectedExtraRepository, ISnackOrderRepo injectedSnackOrderRepository)
+        public SnackOrderController(ISnackRepo injectedSnackRepository, IExtraRepo injectedExtraRepository)
         {
             snackRepo = injectedSnackRepository;            
-            extraRepo = injectedExtraRepository;
-            snackOrderRepo = injectedSnackOrderRepository;
+            extraRepo = injectedExtraRepository;            
         }
         
         public ActionResult Index()
