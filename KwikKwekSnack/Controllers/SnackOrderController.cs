@@ -19,12 +19,7 @@ namespace KwikKwekSnackWeb.Controllers
         {
             snackRepo = injectedSnackRepository;            
             extraRepo = injectedExtraRepository;            
-        }
-        
-        public ActionResult Index()
-        {
-            return View();
-        }
+        }               
         
         public ActionResult Create()
         {
@@ -47,25 +42,6 @@ namespace KwikKwekSnackWeb.Controllers
         public ActionResult Create(OrderViewModel model)
         {            
             return RedirectToAction("DrinkOrderController", "Create", orderViewModel);
-        }
-        
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-        
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
 
         [HttpGet]
