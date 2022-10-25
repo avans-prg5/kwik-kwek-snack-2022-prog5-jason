@@ -10,43 +10,30 @@ namespace KwikKwekSnackWeb.Controllers
 {
     public class SnackOrderController : Controller
     {
-        readonly ISnackRepo snackRepo;
-        readonly IOrderRepo orderRepo;
+        readonly ISnackRepo snackRepo;        
         readonly ISnackOrderRepo snackOrderRepo;
         readonly IExtraRepo extraRepo;
 
         private static OrderViewModel orderViewModel;
-
         
-        public SnackOrderController(ISnackRepo injectedSnackRepository, IOrderRepo injectedOrderRepository, IExtraRepo injectedExtraRepository, ISnackOrderRepo injectedSnackOrderRepository)
+        public SnackOrderController(ISnackRepo injectedSnackRepository, IExtraRepo injectedExtraRepository, ISnackOrderRepo injectedSnackOrderRepository)
         {
-            snackRepo = injectedSnackRepository;
-            orderRepo = injectedOrderRepository;
+            snackRepo = injectedSnackRepository;            
             extraRepo = injectedExtraRepository;
             snackOrderRepo = injectedSnackOrderRepository;
         }
-
-
-        // GET: SnackOrderController
+        
         public ActionResult Index()
         {
             return View();
         }
-
-        // GET: SnackOrderController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: SnackOrderController/Create
+        
         public ActionResult Create()
         {
             OrderViewModel viewModel = new OrderViewModel();
             if (orderViewModel == null)
             {
-                viewModel = CreateNewOrderViewModel();
-                orderViewModel = viewModel;
+                viewModel = InitOrderViewModel();
             }
             else
             {
@@ -56,34 +43,19 @@ namespace KwikKwekSnackWeb.Controllers
             PopulateSnackList(ref viewModel);            
             return View(viewModel);
         }
-           
-        private OrderViewModel CreateNewOrderViewModel()
-        {
-            OrderViewModel newViewModel = new OrderViewModel();
-            Order order = new Order();
-            order.Status = OrderStatusType.NotCreated;
-            newViewModel.SnackOrders = new List<PartialSnackOrder>();
-            newViewModel.DrinkOrders = new List<PartialDrinkOrder>();
-            newViewModel.Order = order;
-            return newViewModel;
-        }
-
-        // POST: SnackOrderController/Create
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(OrderViewModel model)
-        {
-            //Next button, go to drinks
+        {            
             return RedirectToAction("DrinkOrderController", "Create", orderViewModel);
-        }       
-
-        // GET: SnackOrderController/Delete/5
+        }
+        
         public ActionResult Delete(int id)
         {
             return View();
         }
-
-        // POST: SnackOrderController/Delete/5
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
@@ -97,6 +69,7 @@ namespace KwikKwekSnackWeb.Controllers
                 return View();
             }
         }
+
         [HttpGet]
         public ActionResult AddSnack(int? snackId)
         {
@@ -107,7 +80,8 @@ namespace KwikKwekSnackWeb.Controllers
             if (!snackId.HasValue)
             {
                 return NotFound();
-            }                        
+            }
+            
             var snack = snackRepo.Get(snackId.Value);
             var snackOrder = new PartialSnackOrder { Snack = snack };            
             PopulateAvailableExtras(ref snackOrder);
@@ -123,17 +97,8 @@ namespace KwikKwekSnackWeb.Controllers
             }
 
             try
-            {
-                var snackOrder = new SnackOrder { Snack = viewModel.Snack };
-                if(viewModel.ChosenExtraIds == null)
-                {
-                    viewModel.ChosenExtraIds = new List<int>();
-                    viewModel.ChosenExtras = new List<Extra>();
-                }
-                else
-                {
-                    SetExtrasFromIds(viewModel, viewModel.ChosenExtraIds);
-                }
+            {                
+                SetChosenExtras(viewModel);
                 viewModel.OrderCost = CalculateSnackOrderPrice(viewModel);
                 orderViewModel.SnackOrders.Add(viewModel);                
             }
@@ -145,26 +110,19 @@ namespace KwikKwekSnackWeb.Controllers
             return RedirectToAction("Create");
         }
 
-        private double CalculateSnackOrderPrice(PartialSnackOrder snackOrder)
+        private void SetChosenExtras(PartialSnackOrder viewModel)
         {
-            double price = 0;
-            price += snackOrder.Snack.StandardPrice;
-            if(snackOrder.ChosenExtras!= null)
+            if (viewModel.ChosenExtraIds == null)
             {
-                foreach(var extra in snackOrder.ChosenExtras)
-                {
-                    try
-                    {
-                        price += extra.Price;
-                    }
-                    catch
-                    {
-                        continue;
-                    }                    
-                }
+                viewModel.ChosenExtraIds = new List<int>();
+                viewModel.ChosenExtras = new List<Extra>();
             }
-            return price;
+            else
+            {
+                SetExtrasFromIds(viewModel, viewModel.ChosenExtraIds);
+            }
         }
+       
         private void SetExtrasFromIds(PartialSnackOrder snackOrder, List<int> extraIds)
         {
             snackOrder.ChosenExtras = new List<Extra>();
@@ -181,6 +139,27 @@ namespace KwikKwekSnackWeb.Controllers
                 }
             }
 
+        }
+
+        private double CalculateSnackOrderPrice(PartialSnackOrder snackOrder)
+        {
+            double price = 0;
+            price += snackOrder.Snack.StandardPrice;
+            if (snackOrder.ChosenExtras != null)
+            {
+                foreach (var extra in snackOrder.ChosenExtras)
+                {
+                    try
+                    {
+                        price += extra.Price;
+                    }
+                    catch
+                    {
+                        continue;
+                    }
+                }
+            }
+            return price;
         }
 
         private void PopulateSnackList(ref OrderViewModel viewModel)
@@ -210,9 +189,22 @@ namespace KwikKwekSnackWeb.Controllers
             }
         }
 
-        private void CleanUpUnusedOrders()
+        private OrderViewModel InitOrderViewModel()
         {
-            orderRepo.CleanUpUnused();
+            OrderViewModel viewModel = CreateNewOrderViewModel();
+            orderViewModel = viewModel;
+            return viewModel;
+        }
+
+        private OrderViewModel CreateNewOrderViewModel()
+        {
+            OrderViewModel newViewModel = new OrderViewModel();
+            Order order = new Order();
+            order.Status = OrderStatusType.NotCreated;
+            newViewModel.SnackOrders = new List<PartialSnackOrder>();
+            newViewModel.DrinkOrders = new List<PartialDrinkOrder>();
+            newViewModel.Order = order;
+            return newViewModel;
         }
     }
 }

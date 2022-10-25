@@ -9,9 +9,7 @@ namespace KwikKwekSnack.Models
         public List<PartialDrinkOrder> DrinkOrders { get; set; }
         public List<PartialSnackOrder> SnackOrders { get; set; }       
         public List<Drink> AllDrinks { get; set; }
-        public List<Snack> AllSnacks { get; set; }        
-        public PartialSnackOrder CurrentSnackOrder { get; set; }
-        public PartialDrinkOrder CurrentDrinkOrder { get; set; }
+        public List<Snack> AllSnacks { get; set; }             
     }
 
     public class PartialDrinkOrder
