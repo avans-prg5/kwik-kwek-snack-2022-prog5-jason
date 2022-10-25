@@ -86,6 +86,21 @@ namespace KwikKwekSnackWeb.Controllers
             return RedirectToAction("Create");
         }
 
+        public ActionResult RemoveSnackOrder(int snackOrderIndex)
+        {
+            
+            try
+            {
+                var snackOrderToRemove = orderViewModel.SnackOrders[snackOrderIndex];
+                orderViewModel.SnackOrders.Remove(snackOrderToRemove);                              
+            }
+            catch
+            {
+                return View("Create", orderViewModel);
+            }
+            return View("Create", orderViewModel);
+        }
+
         private void SetChosenExtras(PartialSnackOrder viewModel)
         {
             if (viewModel.ChosenExtraIds == null)
