@@ -13,6 +13,6 @@ namespace KwikKwekSnack.Domain
         public string FullName { get; set; }
         [Required]
         [DefaultValue(1.00)]
-        public double PriceMultiplier { get; set; } //Bijvoorbeeld 1.25.
+        public double PriceMultiplier { get; set; } //e.g. 1.25
     }
 }
