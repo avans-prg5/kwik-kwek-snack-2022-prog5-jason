@@ -97,7 +97,9 @@ namespace KwikKwekSnackWeb.Controllers
             }
 
             try
-            {                
+            {
+                var snack = snackRepo.Get(viewModel.Snack.Id);
+                viewModel.Snack = snack;
                 SetChosenExtras(viewModel);
                 viewModel.OrderCost = CalculateSnackOrderPrice(viewModel);
                 orderViewModel.SnackOrders.Add(viewModel);                

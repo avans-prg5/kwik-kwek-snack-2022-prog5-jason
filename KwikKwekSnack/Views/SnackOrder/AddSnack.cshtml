@@ -4,66 +4,86 @@
     ViewData["Title"] = "AddSnack";
 }
 
-<h1>Add snack</h1>
-
-<div class="row">
-    <div class="col-md-4">
+<div>
+    <div>
         <form asp-action="AddSnack">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>            
-            <input type="hidden" asp-for="Snack.Id"/>            
-            <div class="form-group">
-                <label asp-for="Snack.Name" class="control-label"></label>
-                <input asp-for="Snack.Name" class="form-control" />
-                <span asp-validation-for="Snack.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Snack.Description" class="control-label"></label>
-                <input asp-for="Snack.Description" class="form-control" />
-                <span asp-validation-for="Snack.Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Snack.StandardPrice" class="control-label"></label>
-                <input asp-for="Snack.StandardPrice" class="form-control" />
-                <span asp-validation-for="Snack.StandardPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Snack.ImageURL" class="control-label"></label>
-                <input asp-for="Snack.ImageURL" class="form-control" />
-                <span asp-validation-for="Snack.ImageURL" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+            <input type="hidden" asp-for="Snack.Id"/>
+
+            <div class="container-fluid">
                 <div class="row">
-                @{
-                    int i = 0;
-                    if(Model.AvailableExtras == null)
-                    {
-                        Model.AvailableExtras = new List<AssignedExtra>();
-                    }
+                    <div class="col-6 mw-50">
+                        <div class="flex-row justify-content-start">
+                        <h2>@Model.Snack.Name</h2>
+                        @{
+                            var snackPriceString = "€" + Model.Snack.StandardPrice;
+                            <p></p>
+                            @: <h3>@snackPriceString</h3>
+                         } 
+				        @{
+                            if(Model.Snack.ImageURL == null || Model.Snack.ImageURL == "")
+				            {				
+                                        <img src= "https://www.clker.com/cliparts/q/L/P/Y/t/6/no-image-available-md.png" class="img-fluid" style="width: 320px; height: 3620px;" alt="Geen afbeelding beschikbaar"/>									                                   
+				            }
+				            else
+				            {									
+                                        <img src= "@Url.Content(Model.Snack.ImageURL)" class="img-fluid" style="width: 320px; height: 320px;" alt="Geen afbeelding beschikbaar" />									   
+				            }
+                        }
+                        </div>              
+                    </div>
 
+                    <div class="col-6 h-75 w-50">                        
+                        <div class="row-8">
 
-                        foreach(var extra in Model.AvailableExtras)
-                        {
-                            if(i++ % 3 == 0)
-                            {
-                                @:</div><div class="row">
-                            }
+                            <div class="form-group p-2">
+                        
+                                @{
+                                    int i = 0;
+                                    if(Model.AvailableExtras == null)
+                                    {
+                                        Model.AvailableExtras = new List<AssignedExtra>();
+                                    }
+
+                                    foreach(var extra in Model.AvailableExtras)
+                                    {
+                                        var extraPriceString = " €" + extra.Price;
+
+                                        if(i++ % 3 == 0)
+                                        {
+                                            @:</div><div class="row">
+                                        }
                            
-                            @:<div class="col-4">
-                                <input type="checkbox"
-                                    name="ChosenExtraIds"                                     
-                                    value="@extra.ExtraId"
-                                    @(Html.Raw(extra.Assigned ? "checked=\"checked\"" : "")) />
-                                @: @extra.Name
-                            @:</div>
-                        }                    
-                    }
+                                        @:<div class="col-4 p-2">
+                                            <input type="checkbox"
+                                                name="ChosenExtraIds"                                     
+                                                value="@extra.ExtraId"
+                                                @(Html.Raw(extra.Assigned ? "checked=\"checked\"" : "")) />
+                                            @: @extra.Name
+                                            @: @extraPriceString
+                                        @:</div>
+                                    }                    
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>               
+                <div class="row pt-4">
+                    <div class="col-2">
+                        <a asp-action="Create">Terug</a>                        
+                    </div>
+                    <div class="col-8">
+
+                    </div>
+                    <div class="col-2">
+                         <div class="form-group">
+                            <input type="submit" value="Toevoegen" class="btn btn-primary" />
+                        </div>
+                    </div>           
                 </div>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Toevoegen" class="btn btn-primary" />
-            </div>
-            <a asp-action="Create">Terug</a>  
-        </form>
+                
+            </form>
+        </div>
     </div>    
       
 </div>
