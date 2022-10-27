@@ -63,8 +63,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/Order/AddDrink.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcQWRkRHJpbmsuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/Order/AddSnack.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcQWRkU25hY2suY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/Order/CreateDrinkOrder.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcQ3JlYXRlRHJpbmtPcmRlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/Order/CreateSnackOrder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcQ3JlYXRlU25hY2tPcmRlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/Order/FinalizeOrder.cshtml]
@@ -81,14 +93,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/SnackOrder/AddSnack.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU25hY2tPcmRlclxBZGRTbmFjay5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/SnackOrder/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU25hY2tPcmRlclxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Jason/Documents/GitHub/kwik-kwek-snack-2022-prog5-jason/KwikKwekSnack/Views/Snack/Create.cshtml]

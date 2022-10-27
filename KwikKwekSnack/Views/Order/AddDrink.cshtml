@@ -1,33 +1,33 @@
-﻿@model KwikKwekSnack.Models.PartialSnackOrder
+﻿@model KwikKwekSnack.Models.PartialDrinkOrder
 
 @{
-    ViewData["Title"] = "AddSnack";
+    ViewData["Title"] = "AddDrink";
 }
 
 <div>
     <div>
-        <form asp-action="AddSnack">
+        <form asp-action="AddDrink">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>            
-            <input type="hidden" asp-for="Snack.Id"/>
+            <input type="hidden" asp-for="Drink.Id"/>
 
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-6 mw-50">
                         <div class="flex-row justify-content-start">
-                        <h2>@Model.Snack.Name</h2>
+                        <h2>@Model.Drink.Name</h2>
                         @{
-                            var snackPriceString = "€" + Model.Snack.StandardPrice;
+                            var snackPriceString = "€" + Model.Drink.MinimalPrice;
                             <p></p>
                             @: <h3>@snackPriceString</h3>
                          } 
 				        @{
-                            if(Model.Snack.ImageURL == null || Model.Snack.ImageURL == "")
+                            if(Model.Drink.ImageURL == null || Model.Drink.ImageURL == "")
 				            {				
                                 <img src= "https://www.clker.com/cliparts/q/L/P/Y/t/6/no-image-available-md.png" class="img-fluid" style="width: 320px; height: auto;" alt="Geen afbeelding beschikbaar"/>									                                   
 				            }
 				            else
 				            {									
-                                <img src= "@Url.Content(Model.Snack.ImageURL)" class="img-fluid" style="width: 320px; height: auto;" alt="Geen afbeelding beschikbaar" />									   
+                                <img src= "@Url.Content(Model.Drink.ImageURL)" class="img-fluid" style="width: 320px; height: auto;" alt="Geen afbeelding beschikbaar" />									   
 				            }
                         }
                         </div>              
@@ -70,20 +70,19 @@
                 </div>               
                 <div class="row pt-4">
                     <div class="col-2">
-                        <a asp-action="Create">Terug</a>                        
+                        <a asp-action="CreateDrinkOrder">Terug</a>                        
                     </div>
                     <div class="col-8">
 
                     </div>
                     <div class="col-2">
-                         <div class="form-group">
+                        <div class="form-group">
                             <input type="submit" value="Toevoegen" class="btn btn-primary" />
                         </div>
                     </div>           
                 </div>
-                
-            </form>
-        </div>
-    </div>    
-      
-</div>
+            </div>                
+        </form>
+    </div>
+</div>  
+

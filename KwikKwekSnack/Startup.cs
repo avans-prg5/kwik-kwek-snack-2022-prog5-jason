@@ -36,9 +36,7 @@ namespace KwikKwekSnack
             services.AddScoped<IDrinkRepo, DrinkRepoSql>();
             services.AddScoped<ISnackRepo, SnackRepoSql>();
             services.AddScoped<IExtraRepo, ExtraRepoSql>();
-            services.AddScoped<IOrderRepo, OrderRepoSql>();
-            services.AddScoped<ISnackOrderRepo, SnackOrderRepoSql>();
-            services.AddScoped<IDrinkOrderRepo, DrinkOrderRepoSql>();
+            services.AddScoped<IOrderRepo, OrderRepoSql>();            
 
             services.AddControllersWithViews();
         }

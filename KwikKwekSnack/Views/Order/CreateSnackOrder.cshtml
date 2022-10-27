@@ -1,6 +1,6 @@
 ﻿@model KwikKwekSnack.Models.OrderViewModel
 @{
-	ViewData["Title"] = "Create";
+	ViewData["Title"] = "CreateSnackOrder";
 }
 
 <style>
@@ -11,7 +11,7 @@
 
 
 <div class="flex-fill custom-container">
-	<h1>Selecteer een snack</h1>
+	<h1>Kies snacks</h1>
 	<div class="container-fluid bg-light">
 		<div class="row">
 			<div class="col-sm-10">
@@ -92,21 +92,32 @@
 							}
 							if(Model.DrinkOrders != null)
 							{
+								int drinkOrderIndex = 0;
 								foreach (var drinkOrder in Model.DrinkOrders)
 								{
 									double cost = drinkOrder.OrderCost;
 
-									<li class="list-group-item">
-										@drinkOrder.Drink.Name + 
+									<li class="list-group-item mb-2 shadow bg-body rounded">
+										<div class="row">
+											<div class="col-8 w-75 font-weight-light">
+										@drinkOrder.Drink.Name 
 										@{
 											foreach (var extra in drinkOrder.ChosenExtras)
 											{
 												var nameString = "+ " + extra.Name;												
 												@nameString                                           
 											}
-										@cost
-									}
+											<p>
+												€@cost
+											</p> 
+										}
+											</div>
+											<div class="col-sm text-right">
+												<a class="text-danger font-weight-bold" asp-action="RemoveDrinkOrder" asp-route-drinkOrderIndex="@drinkOrderIndex">X</a>
+											</div>
+										</div>
 									</li>
+									drinkOrderIndex++;
 								}
 							}
 						}
@@ -115,18 +126,19 @@
 					</div>
 				</div>
 		</div>
+		<!-- Navigation buttons -->		
 		<div class="row">
 			<div class="col-sm-10 button-divs">
 				<div class="d-flex justify-content-start">
-					<button type="button" asp-action="Home" class="btn btn-primary">&laquo; Terug </button>
+					<a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Index">&laquo; Terug</a>						
 				</div>
 			</div>
 			<div class="col-2 bg-secondary button-divs">
-				<div class="d-flex justify-content-end">                    
-					<input type="submit" value="Volgende &raquo" class="btn btn-primary" />
+				<div class="d-flex justify-content-end">
+					<a class="btn btn-primary" asp-area="" asp-action="CreateDrinkOrder">Volgende &raquo</a>						
 				</div>
 			</div>
-		</div>
+		</div>			
 	</div>
 </div>
 

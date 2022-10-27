@@ -17,8 +17,4 @@
     <ProjectReference Include="..\KwikKwekSnack.Domain\KwikKwekSnack.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\DrinkOrder\" />
-  </ItemGroup>
-
 </Project>

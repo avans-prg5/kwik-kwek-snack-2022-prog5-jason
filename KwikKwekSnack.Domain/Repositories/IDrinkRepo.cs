@@ -9,5 +9,6 @@ namespace KwikKwekSnack.Domain.Repositories
         bool Delete(int id);
         Drink Update(Drink drink, List<int> extras);
         Drink Create(Drink drink, List<int> extras);
+        List<Extra> GetExtras(int id);
     }
 }

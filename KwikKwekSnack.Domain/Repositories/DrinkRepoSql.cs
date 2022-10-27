@@ -89,6 +89,20 @@ namespace KwikKwekSnack.Domain.Repositories
             ctx.Drinks.Update(drink);
             ctx.SaveChanges();
             return drink;
-        }       
+        }
+
+        public List<Extra> GetExtras(int id)
+        {
+            var drink = ctx.Drinks.FirstOrDefault(s => s.Id == id);
+            ctx.Attach(drink);
+            ctx.Entry(drink).Collection(p => p.AvailableExtras).Load();
+            var availableExtras = drink.AvailableExtras.Select(i => i.ExtraId);
+            var extras = new List<Extra>();
+            foreach (var extraId in availableExtras)
+            {
+                extras.Add(ctx.Extras.FirstOrDefault(e => e.Id == extraId));
+            }
+            return extras;
+        }
     }
 }
