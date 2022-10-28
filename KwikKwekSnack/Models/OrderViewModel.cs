@@ -9,7 +9,8 @@ namespace KwikKwekSnack.Models
         public List<PartialDrinkOrder> DrinkOrders { get; set; }
         public List<PartialSnackOrder> SnackOrders { get; set; }       
         public List<Drink> AllDrinks { get; set; }
-        public List<Snack> AllSnacks { get; set; }             
+        public List<Snack> AllSnacks { get; set; }        
+        public OrderDeliveryType DeliveryType { get; set; }
     }
 
     public class PartialDrinkOrder
@@ -28,5 +29,5 @@ namespace KwikKwekSnack.Models
         public List<AssignedExtra> AvailableExtras { get; set; }
         public List<int> ChosenExtraIds { get; set; }
         public List<Extra> ChosenExtras { get; set; }
-    }
+    }   
 }

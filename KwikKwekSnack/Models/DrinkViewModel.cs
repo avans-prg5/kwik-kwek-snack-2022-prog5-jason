@@ -14,7 +14,6 @@ namespace KwikKwekSnack.Models
     {
         public Drink Drink { get; set; }
         public List<int> AvailableExtras { get; set; }
-        public List<AssignedExtra> AssignedExtras { get; set; }        
-        public ImageViewModel Image { get; set; }        
+        public List<AssignedExtra> AssignedExtras { get; set; }              
     }    
 }

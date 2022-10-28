@@ -1,0 +1,82 @@
+﻿@model KwikKwekSnack.Models.OrderViewModel
+@{
+    ViewData["Title"] = "Overview";
+}
+<form asp-action="Overview">
+    <div class="row">    
+        <div class="col-md-8">
+            <h2>Uw bestelling: </h2>
+            <div class="d-flex justify-content-start">
+                <ul class="pl-0">
+                @{                
+                    if(Model.SnackOrders != null)
+		            {
+                        foreach(var snackOrder in Model.SnackOrders)
+                        {
+                        <li class="list-group-item mb-2 shadow bg-body rounded">
+                            <div class="row">
+                                <div class="col-8 w-75 font-weight-light">
+                                    @snackOrder.Snack.Name
+                                    @{
+                                        foreach (var extra in snackOrder.ChosenExtras)
+                                        {
+                                            var nameString = "+ " + extra.Name;
+                                            @nameString
+                                        }                                    
+                                    }
+                                </div>
+                            </div>
+                        </li>
+                        }
+                    }
+               
+
+                    if (Model.DrinkOrders != null)
+                    {
+                        foreach (var drinkOrder in Model.DrinkOrders)
+                        {
+                            <li class="list-group-item mb-2 shadow bg-body rounded">
+                                <div class="row">
+                                    <div class="col-8 w-75 font-weight-light">
+                                        @drinkOrder.Drink.Name
+                                        @{
+                                            foreach (var extra in drinkOrder.ChosenExtras)
+                                            {
+                                                var nameString = "+ " + extra.Name;
+                                                @nameString
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    }
+                
+                }
+                </ul>
+            </div>        
+        </div>
+        <div class="col-md-4">        
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mt-5">
+                <select asp-for="DeliveryType" asp-items="Html.GetEnumSelectList<KwikKwekSnack.Domain.OrderDeliveryType>()">
+                    <option selected="selected" value="">Selecteer of U wilt afhalen of bezorgen</option>
+                </select>
+            </div>                 
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="d-flex justify-content-start">
+                <a class="btn btn-primary" asp-area="" asp-action="CreateDrinkOrder">&laquo; Terug</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="d-flex justify-content-end">
+                <div class="form-group">
+                    <input type="submit" value="Bestelling plaatsen" class="btn btn-success" />
+                </div>
+            </div>           
+        </div>
+    </div>
+</form>

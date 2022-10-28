@@ -20,8 +20,7 @@ namespace KwikKwekSnack.Domain
         [Required]
         [DisplayName("Delivery type")]
         public OrderDeliveryType DeliveryType { get; set; }       
-        public OrderStatusType Status { get; set; }        
-        public User Customer { get; set; }
+        public OrderStatusType Status { get; set; }       
     }
     public enum OrderDeliveryType
     {
