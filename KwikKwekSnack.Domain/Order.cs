@@ -10,10 +10,10 @@ namespace KwikKwekSnack.Domain
         [Key]
         public int Id { get; set; }
         [DisplayName("Drink orders")]
-        public List<DrinkOrder> DrinkOrders { get; set; }
-        [Required]
+        public virtual ICollection<DrinkOrder> DrinkOrders { get; set; }
+        
         [DisplayName("Snack orders")]
-        public List<SnackOrder> SnackOrders { get; set; }
+        public virtual ICollection<SnackOrder> SnackOrders { get; set; }
         [Required]
         [DisplayName("Creation time")]
         public DateTime CreatedDateTime { get; set; }

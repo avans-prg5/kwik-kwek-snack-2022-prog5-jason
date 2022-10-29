@@ -3,6 +3,7 @@ using KwikKwekSnack.Domain.Repositories;
 using KwikKwekSnack.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+
 using System.Collections.Generic;
 using System.Linq;
 
@@ -58,14 +59,14 @@ namespace KwikKwekSnackWeb.Controllers
                 if (ModelState.IsValid)
                 {
                     var newSnack = repo.Create(viewModel.Snack, viewModel.AvailableExtras);
-                    return View("Details", newSnack);
-                }
-                return View(viewModel);
+                    return RedirectToAction("Details", newSnack);
+                }                
             }
             catch
             {
                 return View(viewModel);
             }
+            return View(viewModel);
         }
         
         public ActionResult Edit(int? id)

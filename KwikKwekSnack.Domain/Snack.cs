@@ -15,5 +15,6 @@ namespace KwikKwekSnack.Domain
         [Required]
         public double StandardPrice { get; set; }
         public virtual ICollection<SnackExtra> AvailableExtras { get; set; }
+        public bool Active { get; set; }
     }
 }

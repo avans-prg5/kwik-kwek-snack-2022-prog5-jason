@@ -4,6 +4,7 @@ using KwikKwekSnack.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KwikKwekSnack.Domain.Migrations
 {
     [DbContext(typeof(KwikKwekSnackContext))]
-    partial class KwikKwekSnackContextModelSnapshot : ModelSnapshot
+    [Migration("20221029153609_Active_property_drink_snack_extra_and_ICollections_order")]
+    partial class Active_property_drink_snack_extra_and_ICollections_order
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,7 +145,7 @@ namespace KwikKwekSnack.Domain.Migrations
                     b.Property<int>("DrinkSizeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("OrderId")
+                    b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
                     b.HasKey("DrinkOrderId");
@@ -413,7 +415,7 @@ namespace KwikKwekSnack.Domain.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SnackOrderId"), 1L, 1);
 
-                    b.Property<int>("OrderId")
+                    b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
                     b.Property<int>("SnackId")
@@ -478,9 +480,7 @@ namespace KwikKwekSnack.Domain.Migrations
 
                     b.HasOne("KwikKwekSnack.Domain.Order", null)
                         .WithMany("DrinkOrders")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrderId");
 
                     b.Navigation("Drink");
 
@@ -529,9 +529,7 @@ namespace KwikKwekSnack.Domain.Migrations
                 {
                     b.HasOne("KwikKwekSnack.Domain.Order", null)
                         .WithMany("SnackOrders")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrderId");
 
                     b.HasOne("KwikKwekSnack.Domain.Snack", "Snack")
                         .WithMany()

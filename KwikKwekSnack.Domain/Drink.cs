@@ -19,5 +19,6 @@ namespace KwikKwekSnack.Domain
         [DisplayName("Minimal price")] 
         public double MinimalPrice { get; set; }       
         public virtual ICollection<DrinkExtra> AvailableExtras { get; set; }
+        public bool Active { get; set; }
     }
 }

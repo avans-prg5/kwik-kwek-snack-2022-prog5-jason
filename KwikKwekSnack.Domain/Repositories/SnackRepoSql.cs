@@ -17,11 +17,14 @@ namespace KwikKwekSnack.Domain.Repositories
         }
         public Snack Create(Snack snack, List<int> extras)
         {
-            if (extras == null)
-            {
-                extras = new List<int>();
-            }
             snack.AvailableExtras = new List<SnackExtra>();
+            if (extras == null || extras.Count <= 0)
+            {                
+                ctx.Snacks.Add(snack);
+                ctx.SaveChanges();
+                return snack;
+            }
+            
             foreach (var extra in ctx.Extras)
             {
                 if (extras.Contains(extra.Id))

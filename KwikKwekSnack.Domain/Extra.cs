@@ -15,7 +15,8 @@ namespace KwikKwekSnack.Domain
         [StringLength(30, MinimumLength = 2)]
         public string Name { get; set; }
         [Required]        
-        public double Price { get; set; }        
+        public double Price { get; set; }
+        public bool Active { get; set; }
         public virtual ICollection<DrinkExtra> ExtraOfDrink { get; set; }
         public virtual ICollection<SnackExtra> ExtraOfSnack { get; set; }
         public virtual ICollection<DrinkOrderExtra> ExtraOfDrinkOrder { get; set; }

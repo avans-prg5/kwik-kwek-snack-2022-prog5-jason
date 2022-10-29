@@ -20,6 +20,9 @@ namespace KwikKwekSnack.Domain.Repositories
             if(extras == null)
             {
                 extras = new List<int>();
+                ctx.Drinks.Add(drink);
+                ctx.SaveChanges();
+                return drink;
             }
             drink.AvailableExtras = new List<DrinkExtra>();
             foreach (var extra in ctx.Extras)

@@ -12,8 +12,9 @@ namespace KwikKwekSnack.Domain
         public Drink Drink { get; set; }
         [Required]
         public DrinkSize DrinkSize { get; set; }
-        [DisplayName("Drink options")]
+        [DisplayName("Drink options")]        
         public virtual ICollection<DrinkOrderExtra> ChosenExtras { get; set; }
-        
+        public int OrderId { get; set; }
+
     }
 }

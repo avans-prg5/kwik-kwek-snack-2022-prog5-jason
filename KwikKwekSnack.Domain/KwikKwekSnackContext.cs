@@ -16,17 +16,17 @@ namespace KwikKwekSnack.Domain
 
         }
         public DbSet<Drink> Drinks { get; set; }
+        public DbSet<DrinkSize> DrinkSizes { get; set; }
         public DbSet<DrinkExtra> DrinkExtras { get; set; }
         public DbSet<DrinkOrder> DrinkOrders { get; set; }
-        public DbSet<DrinkOrderExtra> DrinkOrderExtras { get; set; }        
-        public DbSet<DrinkSize> DrinkSizes { get; set; }
-        public DbSet<Extra> Extras { get; set; }
-        public DbSet<Order> Orders { get; set; }
+        public DbSet<DrinkOrderExtra> DrinkOrderExtras { get; set; }
         public DbSet<Snack> Snacks { get; set; }
         public DbSet<SnackExtra> SnackExtras { get; set; }
-        public DbSet<SnackOrderExtra> SnackOrderExtras { get; set; }
         public DbSet<SnackOrder> SnackOrders { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<SnackOrderExtra> SnackOrderExtras { get; set; }        
+        public DbSet<Extra> Extras { get; set; }
+        public DbSet<Order> Orders { get; set; }       
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if(!optionsBuilder.IsConfigured)
@@ -72,7 +72,7 @@ namespace KwikKwekSnack.Domain
         private void FillDrinkSizeSeedData(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<DrinkSize>().HasData(
-                new DrinkSize {  Id = 1, ShortName = "S", FullName = "Small", PriceMultiplier = 1.00},
+                new DrinkSize { Id = 1, ShortName = "S", FullName = "Small", PriceMultiplier = 1.00},
                 new DrinkSize { Id = 2, ShortName = "M", FullName = "Medium", PriceMultiplier = 1.25 },
                 new DrinkSize { Id = 3, ShortName = "L", FullName = "Large", PriceMultiplier = 1.50 }
             );

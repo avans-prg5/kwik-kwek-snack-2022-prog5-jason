@@ -9,7 +9,8 @@ namespace KwikKwekSnack.Domain
         [Key]
         public int SnackOrderId { get; set; }
         [Required]
-        public Snack Snack { get; set; }
+        public Snack Snack { get; set; }        
+        public int OrderId { get; set; }
         public virtual ICollection<SnackOrderExtra> ChosenExtras { get; set; }
     }
 }

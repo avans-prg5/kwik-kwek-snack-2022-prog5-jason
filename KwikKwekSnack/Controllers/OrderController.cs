@@ -9,6 +9,10 @@ using System.Collections.Generic;
 
 namespace KwikKwekSnackWeb.Controllers
 {
+    //Create order
+    //Create snackOrders and add them to order
+    //Create drinkOrders and add them to order
+    //Save
     public class OrderController : Controller
     {
         IOrderRepo repo;
@@ -168,6 +172,7 @@ namespace KwikKwekSnackWeb.Controllers
             return Redirect(TempData["OrderPageUrl"].ToString());
         }
 
+        [HttpGet]
         public ActionResult Overview()
         {
             return View(orderViewModel);
@@ -176,13 +181,16 @@ namespace KwikKwekSnackWeb.Controllers
         [HttpPost]
         public ActionResult Overview(OrderViewModel viewModel)
         {
-            var order = new Order();
-            var snackOrders = CreateSnackOrderListFromViewModel(viewModel);
-            var drinkOrders = CreateDrinkOrderListFromViewModel(viewModel);
-            var orderDeliveryType = viewModel.DeliveryType;
-            order = repo.Create(order, snackOrders, drinkOrders, orderDeliveryType);
-
-            return View("Home", "Index");
+            if(orderViewModel == null)
+            {
+                return RedirectToAction("CreateSnackOrder");
+            }
+            var snackOrders = CreateSnackOrderListFromViewModel(orderViewModel);
+            var drinkOrders = CreateDrinkOrderListFromViewModel(orderViewModel);
+            var order = repo.Create(orderViewModel.Order, snackOrders, drinkOrders, orderViewModel.DeliveryType);     
+            
+            orderViewModel = CreateNewOrderViewModel();
+            return View("Success");
         }
 
         public List<SnackOrder> CreateSnackOrderListFromViewModel(OrderViewModel viewModel)
@@ -195,7 +203,22 @@ namespace KwikKwekSnackWeb.Controllers
 
             foreach(var snackOrderViewModel in viewModel.SnackOrders)
             {
-                var snackOrder = repo.CreateSnackOrder(new SnackOrder { Snack = snackOrderViewModel.Snack }, snackOrderViewModel.ChosenExtraIds);
+                if(snackOrderViewModel.ChosenExtraIds == null)
+                {
+                    snackOrderViewModel.ChosenExtraIds = new List<int>();
+                }
+                SnackOrder snackOrder = new SnackOrder();
+                snackOrder.Snack = snackOrderViewModel.Snack;
+                snackOrder.ChosenExtras = new List<SnackOrderExtra>();
+                foreach(var id in snackOrderViewModel.ChosenExtraIds)
+                {
+                    var extra = extraRepo.Get(id);
+                    SnackOrderExtra snackOrderExtra = new SnackOrderExtra();
+                    snackOrderExtra.SnackOrder = snackOrder;
+                    snackOrderExtra.Extra = extra;        
+
+                    snackOrder.ChosenExtras.Add(snackOrderExtra);
+                }                
                 snackOrders.Add(snackOrder);
             }
             return snackOrders;
@@ -204,14 +227,29 @@ namespace KwikKwekSnackWeb.Controllers
         public List<DrinkOrder> CreateDrinkOrderListFromViewModel(OrderViewModel viewModel)
         {
             List<DrinkOrder> drinkOrders = new List<DrinkOrder>();
-            if (viewModel.SnackOrders == null)
+            if (viewModel.DrinkOrders == null)
             {
                 return drinkOrders;
             }
 
             foreach (var drinkOrderViewModel in viewModel.DrinkOrders)
             {
-                var drinkOrder = repo.CreateDrinkOrder(new DrinkOrder { Drink = drinkOrderViewModel.Drink }, drinkOrderViewModel.ChosenExtraIds);
+                if (drinkOrderViewModel.ChosenExtraIds == null)
+                {
+                    drinkOrderViewModel.ChosenExtraIds = new List<int>();
+                }
+                DrinkOrder drinkOrder = new DrinkOrder();
+                drinkOrder.Drink = drinkOrderViewModel.Drink;
+                drinkOrder.ChosenExtras = new List<DrinkOrderExtra>();
+                foreach (var id in drinkOrderViewModel.ChosenExtraIds)
+                {
+                    var extra = extraRepo.Get(id);
+                    DrinkOrderExtra drinkOrderExtra = new DrinkOrderExtra();
+                    drinkOrderExtra.DrinkOrder = drinkOrder;
+                    drinkOrderExtra.Extra = extra;
+
+                    drinkOrder.ChosenExtras.Add(drinkOrderExtra);
+                }
                 drinkOrders.Add(drinkOrder);
             }
             return drinkOrders;

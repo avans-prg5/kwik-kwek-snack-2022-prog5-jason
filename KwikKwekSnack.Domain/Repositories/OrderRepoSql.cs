@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,15 +19,20 @@ namespace KwikKwekSnack.Domain.Repositories
 
         public SnackOrder CreateSnackOrder(SnackOrder snackOrder, List<int> extras)
         {
+            snackOrder.ChosenExtras = new List<SnackOrderExtra>();
             if (extras == null || extras.Count <= 0)
             {
-                snackOrder.ChosenExtras = new List<SnackOrderExtra>();
-                ctx.SnackOrders.Add(snackOrder);
+                Order order = new Order();
+                order.SnackOrders = new List<SnackOrder>();
+                order.SnackOrders.Add(snackOrder);
+
+                ctx.Orders.Add(order);
                 ctx.SaveChanges();
+                //ctx.SnackOrders.Add(snackOrder);                
+                //ctx.SaveChanges();
                 return snackOrder;
             }
-
-            snackOrder.ChosenExtras = new List<SnackOrderExtra>();
+            
             foreach (var extra in ctx.Extras)
             {
                 if (extras.Contains(extra.Id))
@@ -37,46 +44,65 @@ namespace KwikKwekSnack.Domain.Repositories
             ctx.SnackOrders.Add(snackOrder);
             ctx.SaveChanges();
             return snackOrder;
-        }
-
-        public DrinkOrder CreateDrinkOrder(DrinkOrder drinkOrder, List<int> extras)
-        {
-            if (extras == null)
-            {
-                drinkOrder.ChosenExtras = new List<DrinkOrderExtra>();
-                ctx.DrinkOrders.Add(drinkOrder);
-                ctx.SaveChanges();
-                return drinkOrder;
-            }
-
-            drinkOrder.ChosenExtras = new List<DrinkOrderExtra>();
-            foreach (var extra in ctx.Extras)
-            {
-                if (extras.Contains(extra.Id))
-                {
-                    drinkOrder.ChosenExtras.Add(new DrinkOrderExtra { DrinkOrderId = drinkOrder.DrinkOrderId, ExtraId = extra.Id });
-                }
-            }
-
-            ctx.DrinkOrders.Add(drinkOrder);
-            ctx.SaveChanges();
-            return drinkOrder;
-        }
+        }      
 
         public Order Create(Order order, List<SnackOrder> snackOrders, List<DrinkOrder> drinkOrders, OrderDeliveryType deliveryType)
         {
-            order.SnackOrders = snackOrders;
-            order.DrinkOrders = drinkOrders;
-            order.CreatedDateTime = DateTime.Now;
-            order.DeliveryType = deliveryType;
+            order = CreateEmptyOrder(order);
+            order.DeliveryType = deliveryType;            
+            ctx.Orders.Add(order);            
+            //ctx.SaveChanges();
 
-            if(order.SnackOrders.Count > 0 || order.DrinkOrders.Count > 0)
+            foreach (var snackOrder in snackOrders)
             {
-                order.Status = OrderStatusType.OrderCreated;
-                ctx.Orders.Add(order);
-                ctx.SaveChanges();
+                AddSnackOrderToOrder(order, snackOrder);
+            }
+
+            foreach (var drinkOrder in drinkOrders)
+            {
+                AddDrinkOrderToOrder(order, drinkOrder);
             }
             
+            if (order.SnackOrders.Count > 0 || order.DrinkOrders.Count > 0)
+            {
+                order.Status = OrderStatusType.OrderCreated;
+                ctx.Orders.Update(order);
+                ctx.SaveChanges();
+            }
+
+            return order;
+        }
+        
+        private void AddSnackOrderToOrder(Order order, SnackOrder snackOrder)
+        {
+            List<SnackOrderExtra> snackOrderExtras = new List<SnackOrderExtra>();
+            foreach (var snackOrderExtra in snackOrder.ChosenExtras)
+            {
+                var extra = ctx.Extras.FirstOrDefault(e => e.Id == snackOrderExtra.Extra.Id);
+                snackOrderExtras.Add(new SnackOrderExtra { ExtraId = extra.Id, SnackOrderId = snackOrder.SnackOrderId });
+            }
+            var snack = ctx.Snacks.FirstOrDefault(s => s.Id == snackOrder.Snack.Id);
+            order.SnackOrders.Add(new SnackOrder { Snack = snack, OrderId = order.Id, ChosenExtras = snackOrderExtras });
+        }
+
+        private void AddDrinkOrderToOrder(Order order, DrinkOrder drinkOrder)
+        {
+            List<DrinkOrderExtra> drinkOrderExtras = new List<DrinkOrderExtra>();
+            foreach (var drinkOrderExtra in drinkOrder.ChosenExtras)
+            {
+                var extra = ctx.Extras.FirstOrDefault(e => e.Id == drinkOrderExtra.Extra.Id);
+                drinkOrderExtras.Add(new DrinkOrderExtra { ExtraId = extra.Id, DrinkOrderId = drinkOrder.DrinkOrderId });
+            }
+            var drink = ctx.Drinks.FirstOrDefault(d => d.Id == drinkOrder.Drink.Id);
+            order.DrinkOrders.Add(new DrinkOrder { Drink = drink, OrderId = order.Id, ChosenExtras = drinkOrderExtras });
+        }
+
+        private Order CreateEmptyOrder(Order order)
+        {
+            order.SnackOrders = new List<SnackOrder>();
+            order.CreatedDateTime = DateTime.Now;            
+            order.Status = OrderStatusType.NotCreated;
+            ctx.Orders.Add(order);
             return order;
         }
 
@@ -87,7 +113,7 @@ namespace KwikKwekSnack.Domain.Repositories
 
         public Order Get(int id)
         {
-            return ctx.Orders.FirstOrDefault(o => o.Id == id);
+            return ctx.Orders.Include(s => s.SnackOrders).Include(d => d.DrinkOrders).FirstOrDefault(o => o.Id == id);
         }
 
         public List<Order> GetAll()
@@ -131,10 +157,6 @@ namespace KwikKwekSnack.Domain.Repositories
             
             ctx.SaveChanges();
         }
-
-        public Order Create(Order order, List<SnackOrder> snackOrders, List<DrinkOrder> drinkOrders)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
