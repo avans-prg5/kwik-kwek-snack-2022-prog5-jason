@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "bOctHzg/v5MyJGLEQWb7pRjlNQnnbYx9uX2x8yn51ClNRat/CZL8s/px0m4zzfiJy5vvxvOgNpXelUmU079hyw==",
+  "dgSpecHash": "nscsvmLJ6bR7dQRiYR1wVYnvfgfqWvAuWwt1/rkMbaGSfcaW1zoVyWtamVtoRrvs+KJRBMg0iTelK0ygAYAluA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Jason\\Documents\\GitHub\\kwik-kwek-snack-2022-prog5-jason\\KwikKwekSnack\\KwikKwekSnackWeb.csproj",
+  "projectFilePath": "C:\\Users\\Jason\\Documents\\GitHub\\kwik-kwek-snack-2022-prog5-jason\\KwikKwekSnackConsole\\KwikKwekSnackConsole.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Jason\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\Jason\\.nuget\\packages\\humanizer.core\\2.2.0\\humanizer.core.2.2.0.nupkg.sha512",
     "C:\\Users\\Jason\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\Jason\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",
     "C:\\Users\\Jason\\.nuget\\packages\\messagepackanalyzer\\2.1.152\\messagepackanalyzer.2.1.152.nupkg.sha512",
@@ -35,7 +35,6 @@
     "C:\\Users\\Jason\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.9\\microsoft.entityframeworkcore.6.0.9.nupkg.sha512",
     "C:\\Users\\Jason\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\6.0.9\\microsoft.entityframeworkcore.abstractions.6.0.9.nupkg.sha512",
     "C:\\Users\\Jason\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\6.0.9\\microsoft.entityframeworkcore.analyzers.6.0.9.nupkg.sha512",
-    "C:\\Users\\Jason\\.nuget\\packages\\microsoft.entityframeworkcore.design\\6.0.9\\microsoft.entityframeworkcore.design.6.0.9.nupkg.sha512",
     "C:\\Users\\Jason\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\6.0.9\\microsoft.entityframeworkcore.relational.6.0.9.nupkg.sha512",
     "C:\\Users\\Jason\\.nuget\\packages\\microsoft.entityframeworkcore.relational.design\\1.1.6\\microsoft.entityframeworkcore.relational.design.1.1.6.nupkg.sha512",
     "C:\\Users\\Jason\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\6.0.9\\microsoft.entityframeworkcore.sqlserver.6.0.9.nupkg.sha512",

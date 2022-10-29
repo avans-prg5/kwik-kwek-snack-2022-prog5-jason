@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\KwikKwekSnack.Domain\KwikKwekSnack.Domain.csproj" />
+    <ProjectReference Include="..\KwikKwekSnackConsole\KwikKwekSnackConsole.csproj" />
   </ItemGroup>
 
 </Project>

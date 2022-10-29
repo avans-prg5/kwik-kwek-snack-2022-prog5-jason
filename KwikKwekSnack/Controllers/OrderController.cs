@@ -8,11 +8,7 @@ using System;
 using System.Collections.Generic;
 
 namespace KwikKwekSnackWeb.Controllers
-{
-    //Create order
-    //Create snackOrders and add them to order
-    //Create drinkOrders and add them to order
-    //Save
+{    
     public class OrderController : Controller
     {
         IOrderRepo repo;

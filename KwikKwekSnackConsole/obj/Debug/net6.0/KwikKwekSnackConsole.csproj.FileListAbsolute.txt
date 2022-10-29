@@ -1,0 +1,5 @@
+C:\Users\Jason\Documents\GitHub\kwik-kwek-snack-2022-prog5-jason\KwikKwekSnackConsole\obj\Debug\net6.0\KwikKwekSnackConsole.csproj.AssemblyReference.cache
+C:\Users\Jason\Documents\GitHub\kwik-kwek-snack-2022-prog5-jason\KwikKwekSnackConsole\obj\Debug\net6.0\KwikKwekSnackConsole.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Jason\Documents\GitHub\kwik-kwek-snack-2022-prog5-jason\KwikKwekSnackConsole\obj\Debug\net6.0\KwikKwekSnackConsole.AssemblyInfoInputs.cache
+C:\Users\Jason\Documents\GitHub\kwik-kwek-snack-2022-prog5-jason\KwikKwekSnackConsole\obj\Debug\net6.0\KwikKwekSnackConsole.AssemblyInfo.cs
+C:\Users\Jason\Documents\GitHub\kwik-kwek-snack-2022-prog5-jason\KwikKwekSnackConsole\obj\Debug\net6.0\KwikKwekSnackConsole.csproj.CoreCompileInputs.cache

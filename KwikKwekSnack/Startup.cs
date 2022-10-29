@@ -1,17 +1,14 @@
 using KwikKwekSnack.Domain;
 using KwikKwekSnack.Domain.Repositories;
+using KwikKwekSnackConsole.Controller;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace KwikKwekSnack
 {
@@ -39,6 +36,8 @@ namespace KwikKwekSnack
             services.AddScoped<IOrderRepo, OrderRepoSql>();            
 
             services.AddControllersWithViews();
+
+            StartConsoleApp();
         }
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -65,6 +64,12 @@ namespace KwikKwekSnack
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        private void StartConsoleApp()
+        {
+            ConsoleApp consoleApp = new ConsoleApp();
+            consoleApp.Run();
         }
     }
 }

@@ -51,7 +51,7 @@ namespace KwikKwekSnack.Domain.Repositories
             order = CreateEmptyOrder(order);
             order.DeliveryType = deliveryType;            
             ctx.Orders.Add(order);            
-            //ctx.SaveChanges();
+            ctx.SaveChanges();
 
             foreach (var snackOrder in snackOrders)
             {
@@ -65,9 +65,20 @@ namespace KwikKwekSnack.Domain.Repositories
             
             if (order.SnackOrders.Count > 0 || order.DrinkOrders.Count > 0)
             {
-                order.Status = OrderStatusType.OrderCreated;
-                ctx.Orders.Update(order);
-                ctx.SaveChanges();
+                try
+                {
+                    order.Status = OrderStatusType.OrderCreated;
+                    ctx.Orders.Update(order);
+                    ctx.SaveChanges();
+                }
+                catch
+                {
+                    Delete(order.Id);
+                }                
+            }
+            else
+            {
+                Delete(order.Id);
             }
 
             return order;
@@ -76,6 +87,10 @@ namespace KwikKwekSnack.Domain.Repositories
         private void AddSnackOrderToOrder(Order order, SnackOrder snackOrder)
         {
             List<SnackOrderExtra> snackOrderExtras = new List<SnackOrderExtra>();
+            if (snackOrder.ChosenExtras == null)
+            {
+                snackOrder.ChosenExtras = new List<SnackOrderExtra>();
+            }
             foreach (var snackOrderExtra in snackOrder.ChosenExtras)
             {
                 var extra = ctx.Extras.FirstOrDefault(e => e.Id == snackOrderExtra.Extra.Id);
@@ -88,18 +103,24 @@ namespace KwikKwekSnack.Domain.Repositories
         private void AddDrinkOrderToOrder(Order order, DrinkOrder drinkOrder)
         {
             List<DrinkOrderExtra> drinkOrderExtras = new List<DrinkOrderExtra>();
+            if(drinkOrder.ChosenExtras == null)
+            {
+                drinkOrder.ChosenExtras = new List<DrinkOrderExtra>();
+            }
             foreach (var drinkOrderExtra in drinkOrder.ChosenExtras)
             {
                 var extra = ctx.Extras.FirstOrDefault(e => e.Id == drinkOrderExtra.Extra.Id);
                 drinkOrderExtras.Add(new DrinkOrderExtra { ExtraId = extra.Id, DrinkOrderId = drinkOrder.DrinkOrderId });
             }
             var drink = ctx.Drinks.FirstOrDefault(d => d.Id == drinkOrder.Drink.Id);
-            order.DrinkOrders.Add(new DrinkOrder { Drink = drink, OrderId = order.Id, ChosenExtras = drinkOrderExtras });
+            var drinkSize = ctx.DrinkSizes.FirstOrDefault(s => s.Id == 1);
+            order.DrinkOrders.Add(new DrinkOrder { Drink = drink, OrderId = order.Id, ChosenExtras = drinkOrderExtras, DrinkSize = drinkSize });
         }
 
         private Order CreateEmptyOrder(Order order)
         {
             order.SnackOrders = new List<SnackOrder>();
+            order.DrinkOrders = new List<DrinkOrder>();
             order.CreatedDateTime = DateTime.Now;            
             order.Status = OrderStatusType.NotCreated;
             ctx.Orders.Add(order);
@@ -108,7 +129,25 @@ namespace KwikKwekSnack.Domain.Repositories
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            Order orderToDelete = Get(id);
+            foreach (var snackOrder in orderToDelete.SnackOrders)
+            {
+                ctx.Remove(snackOrder);
+            }
+
+            foreach (var drinkOrder in orderToDelete.DrinkOrders)
+            {
+                ctx.Remove(drinkOrder);
+            }
+
+            var toRemove = ctx.Orders.Find(id);
+            if (toRemove != null)
+            {
+                ctx.Orders.Remove(toRemove);
+                ctx.SaveChanges();
+                return true;
+            }
+            return false;
         }
 
         public Order Get(int id)
