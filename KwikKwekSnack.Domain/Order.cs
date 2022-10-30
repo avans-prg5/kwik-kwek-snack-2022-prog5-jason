@@ -15,10 +15,10 @@ namespace KwikKwekSnack.Domain
         [DisplayName("Snack orders")]
         public virtual ICollection<SnackOrder> SnackOrders { get; set; }
         [Required]
-        [DisplayName("Creation time")]
+        [DisplayName("Creatietijd")]
         public DateTime CreatedDateTime { get; set; }
         [Required]
-        [DisplayName("Delivery type")]
+        [DisplayName("Leveringstype")]
         public OrderDeliveryType DeliveryType { get; set; }       
         public OrderStatusType Status { get; set; }       
     }
@@ -32,17 +32,17 @@ namespace KwikKwekSnack.Domain
 
     public enum OrderStatusType
     {
-        [Display(Name ="Not created")]
+        [Display(Name ="Niet aangemaakt")]
         NotCreated,
-        [Display(Name = "Order created")]
+        [Display(Name = "Order aangemaakt")]
         OrderCreated,
-        [Display(Name = "In queue")]
+        [Display(Name = "In wachtlijst")]
         InQueue,
-        [Display(Name = "Being made")]
+        [Display(Name = "Wordt gemaakt")]
         BeingMade,
-        [Display(Name = "Ready")]
+        [Display(Name = "Klaar")]
         Ready,
-        [Display(Name = "Order completed")]
+        [Display(Name = "Order voltooid")]
         OrderCompleted
     }
 }

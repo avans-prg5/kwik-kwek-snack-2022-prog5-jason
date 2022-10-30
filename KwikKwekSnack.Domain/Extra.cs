@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -13,9 +14,12 @@ namespace KwikKwekSnack.Domain
         public int Id { get; set; }
         [Required]
         [StringLength(30, MinimumLength = 2)]
+        [DisplayName("Naam")]
         public string Name { get; set; }
-        [Required]        
+        [Required]
+        [DisplayName("Prijs")]
         public double Price { get; set; }
+        [DisplayName("Actief")]
         public bool Active { get; set; }
         public virtual ICollection<DrinkExtra> ExtraOfDrink { get; set; }
         public virtual ICollection<SnackExtra> ExtraOfSnack { get; set; }

@@ -8,17 +8,21 @@ namespace KwikKwekSnack.Domain
 {
     public class Drink
     {
+        [DisplayName("AfbeeldingsURL")]
         public string ImageURL { get; set; }
         [Key]
         public int Id { get; set; }
         [Required]
         [StringLength(50, MinimumLength = 1)]
-        public string Name { get; set; }        
+        [DisplayName("Naam")]
+        public string Name { get; set; }
+        [DisplayName("Beschrijving")]
         public string Description { get; set; }
         [Required]
-        [DisplayName("Minimal price")] 
+        [DisplayName("Minimale prijs")] 
         public double MinimalPrice { get; set; }       
         public virtual ICollection<DrinkExtra> AvailableExtras { get; set; }
+        [DisplayName("Actief")]
         public bool Active { get; set; }
     }
 }
