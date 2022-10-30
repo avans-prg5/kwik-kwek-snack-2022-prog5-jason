@@ -15,7 +15,7 @@ namespace KwikKwekSnackWeb.Controllers
         {
             repo = injectedRepository;
         }
-        public ActionResult Index() => View(repo.GetAll());
+        public ActionResult Index() => View(repo.GetAllActive());
         
         public ActionResult Details(int? id)
         {
@@ -120,7 +120,7 @@ namespace KwikKwekSnackWeb.Controllers
         {
             try
             {
-                if (repo.Delete(model.Id))
+                if (repo.MakeInactive(model.Id))
                 {
                     return RedirectToAction("Index");
                 }

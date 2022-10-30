@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace KwikKwekSnack.Domain.Repositories
         }
         public Extra Create(Extra extra)
         {
+            extra.Active = true;
             ctx.Extras.Add(extra);
             ctx.SaveChanges();
             return extra;
@@ -31,6 +33,22 @@ namespace KwikKwekSnack.Domain.Repositories
             }
             return false;
         }
+        public bool MakeInactive(int id)
+        {
+            try
+            {
+                var toRemove = ctx.Extras.FirstOrDefault(d => d.Id == id);
+                ctx.Attach(toRemove);
+                toRemove.Active = false;
+                ctx.Extras.Update(toRemove);
+                ctx.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
         public Extra Get(int id)
         {
@@ -40,6 +58,11 @@ namespace KwikKwekSnack.Domain.Repositories
         public List<Extra> GetAll()
         {
             return ctx.Extras.ToList();
+        }
+
+        public List<Extra> GetAllActive()
+        {
+            return ctx.Extras.Where(e => e.Active == true).ToList();
         }
 
         public Extra Update(Extra extra)

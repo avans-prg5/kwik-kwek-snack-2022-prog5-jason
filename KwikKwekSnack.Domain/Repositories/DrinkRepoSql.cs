@@ -17,6 +17,7 @@ namespace KwikKwekSnack.Domain.Repositories
 
         public Drink Create(Drink drink, List<int> extras)
         {
+            drink.Active = true;
             if(extras == null)
             {
                 extras = new List<int>();
@@ -51,6 +52,23 @@ namespace KwikKwekSnack.Domain.Repositories
             return false;
         }
 
+        public bool MakeInactive(int id)
+        {
+            try
+            {
+                var toRemove = ctx.Drinks.Include(d => d.AvailableExtras).FirstOrDefault(d => d.Id == id);
+                ctx.Attach(toRemove);
+                toRemove.Active = false;
+                ctx.Drinks.Update(toRemove);
+                ctx.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }           
+
         public Drink Get(int id)
         {
             return ctx.Drinks.Include(d => d.AvailableExtras).ThenInclude(i => i.Extra).FirstOrDefault(d => d.Id == id);            
@@ -60,7 +78,10 @@ namespace KwikKwekSnack.Domain.Repositories
         {
             return ctx.Drinks.Include(d => d.AvailableExtras).ThenInclude(i => i.Extra).ToList();
         }
-
+        public List<Drink> GetAllActive()
+        {
+            return ctx.Drinks.Where(d => d.Active == true).Include(d => d.AvailableExtras).ThenInclude(i => i.Extra).ToList();
+        }
         public Drink Update(Drink drink, List<int> extras)
         {            
             ctx.Attach(drink);
@@ -103,7 +124,11 @@ namespace KwikKwekSnack.Domain.Repositories
             var extras = new List<Extra>();
             foreach (var extraId in availableExtras)
             {
-                extras.Add(ctx.Extras.FirstOrDefault(e => e.Id == extraId));
+                var extra = ctx.Extras.Where(e => e.Active == true).FirstOrDefault(e => e.Id == extraId);
+                if (extra != null)
+                {
+                    extras.Add(extra);
+                }
             }
             return extras;
         }

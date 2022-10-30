@@ -15,9 +15,9 @@ namespace KwikKwekSnack.Domain
         public string Name { get; set; }
         [DisplayName("Beschrijving")]
         public string Description { get; set; }
-        [RegularExpression(@"^\$?\d+(\.(\d{2}))?$")]
+        
         [Required]
-        [DisplayName("Standaardprijs")]
+        [DisplayName("Standaard prijs")]
         public double StandardPrice { get; set; }
         public virtual ICollection<SnackExtra> AvailableExtras { get; set; }
         [DisplayName("Actief")]

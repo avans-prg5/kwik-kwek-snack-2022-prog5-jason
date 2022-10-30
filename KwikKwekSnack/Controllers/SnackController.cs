@@ -3,7 +3,7 @@ using KwikKwekSnack.Domain.Repositories;
 using KwikKwekSnack.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,7 +22,7 @@ namespace KwikKwekSnackWeb.Controllers
 
         public ActionResult Index()
         {
-            var model = repo.GetAll();
+            var model = repo.GetAllActive();
             return View(model);            
         }        
 
@@ -58,6 +58,7 @@ namespace KwikKwekSnackWeb.Controllers
                 viewModel.AssignedExtras = new List<AssignedExtra>();
                 if (ModelState.IsValid)
                 {
+                    viewModel.Snack.StandardPrice = Math.Round(viewModel.Snack.StandardPrice, 2);
                     var newSnack = repo.Create(viewModel.Snack, viewModel.AvailableExtras);
                     return RedirectToAction("Details", newSnack);
                 }                
@@ -118,6 +119,7 @@ namespace KwikKwekSnackWeb.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    viewModel.Snack.StandardPrice = Math.Round(viewModel.Snack.StandardPrice, 2);
                     repo.Update(viewModel.Snack, viewModel.AvailableExtras);
                     return true;
                 }
@@ -161,7 +163,7 @@ namespace KwikKwekSnackWeb.Controllers
         {
             try
             {
-                if (repo.Delete(model.Id))
+                if (repo.MakeInactive(model.Id))
                 {
                     return true;
                 }
@@ -174,7 +176,7 @@ namespace KwikKwekSnackWeb.Controllers
         }
         private void PopulateAssignedExtras(ref SnackViewModel viewModel)
         {
-            var allExtras = extraRepo.GetAll();
+            var allExtras = extraRepo.GetAllActive();
             var snackExtraIds = viewModel.Snack.AvailableExtras.Select(d => d.ExtraId);
             viewModel.AssignedExtras = new List<AssignedExtra>();
             foreach (var extra in allExtras)
@@ -190,7 +192,7 @@ namespace KwikKwekSnackWeb.Controllers
         }
         private void PopulateAllExtras(ref SnackViewModel viewModel)
         {
-            var allExtras = extraRepo.GetAll();
+            var allExtras = extraRepo.GetAllActive();
             viewModel.AssignedExtras = new List<AssignedExtra>();
             viewModel.AvailableExtras = new List<int>();
             foreach (Extra extra in allExtras)

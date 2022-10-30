@@ -17,6 +17,7 @@ namespace KwikKwekSnack.Domain.Repositories
         }
         public Snack Create(Snack snack, List<int> extras)
         {
+            snack.Active = true;
             snack.AvailableExtras = new List<SnackExtra>();
             if (extras == null || extras.Count <= 0)
             {                
@@ -55,7 +56,22 @@ namespace KwikKwekSnack.Domain.Repositories
             }
             return false;
         }
-
+        public bool MakeInactive(int id)
+        {
+            try
+            {
+                var toRemove = ctx.Snacks.Include(d => d.AvailableExtras).FirstOrDefault(d => d.Id == id);
+                ctx.Attach(toRemove);
+                toRemove.Active = false;
+                ctx.Snacks.Update(toRemove);
+                ctx.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public Snack Get(int id)
         {
             return ctx.Snacks.Include(s => s.AvailableExtras).ThenInclude(i => i.Extra).FirstOrDefault(d => d.Id == id);
@@ -65,7 +81,10 @@ namespace KwikKwekSnack.Domain.Repositories
         {
             return ctx.Snacks.ToList();
         }
-
+        public List<Snack> GetAllActive()
+        {
+            return ctx.Snacks.Where(s => s.Active == true).ToList();
+        }
         public Snack Update(Snack snack, List<int> extras)
         {
             ctx.Attach(snack);
@@ -113,7 +132,11 @@ namespace KwikKwekSnack.Domain.Repositories
             var extras = new List<Extra>();            
             foreach(var extraId in availableExtras)
             {
-                extras.Add(ctx.Extras.FirstOrDefault(e => e.Id == extraId));
+                var extra = ctx.Extras.Where(e => e.Active == true).FirstOrDefault(e => e.Id == extraId);
+                if(extra != null)
+                {
+                    extras.Add(extra);
+                }                
             }
             return extras;
         }

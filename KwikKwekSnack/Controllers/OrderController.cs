@@ -353,9 +353,23 @@ namespace KwikKwekSnackWeb.Controllers
             return price;
         }
 
+        private double CalculateTotalOrderPrice(OrderViewModel viewModel)
+        {
+            double price = 0;
+            foreach(var snackOrder in viewModel.SnackOrders)
+            {
+                price += CalculateSnackOrderPrice(snackOrder);
+            }
+            foreach (var drinkOrder in viewModel.DrinkOrders)
+            {
+                price += CalculateDrinkOrderPrice(drinkOrder);
+            }
+            return price;
+        }
+
         private void PopulateSnackList(ref OrderViewModel viewModel)
         {
-            var allSnacks = snackRepo.GetAll();
+            var allSnacks = snackRepo.GetAllActive();
             viewModel.AllSnacks = new List<Snack>();
             foreach (Snack snack in allSnacks)
             {
@@ -365,7 +379,7 @@ namespace KwikKwekSnackWeb.Controllers
 
         private void PopulateDrinkList(ref OrderViewModel viewModel)
         {
-            var allDrinks = drinkRepo.GetAll();
+            var allDrinks = drinkRepo.GetAllActive();
             viewModel.AllDrinks = new List<Drink>();
             foreach (Drink drink in allDrinks)
             {

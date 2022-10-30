@@ -22,7 +22,7 @@ namespace KwikKwekSnackWeb.Controllers
         
         public ActionResult Index()
         {
-            var model = repo.GetAll();
+            var model = repo.GetAllActive();
             return View(model);
         }
         
@@ -162,7 +162,7 @@ namespace KwikKwekSnackWeb.Controllers
         {
             try
             {
-                if (repo.Delete(model.Id))
+                if (repo.MakeInactive(model.Id))
                 {
                     return true;
                 }
@@ -176,7 +176,7 @@ namespace KwikKwekSnackWeb.Controllers
 
         private void PopulateAssignedExtras(ref DrinkViewModel viewModel)
         {
-            var allExtras = extraRepo.GetAll();
+            var allExtras = extraRepo.GetAllActive();
             var drinkExtraIds = viewModel.Drink.AvailableExtras.Select(d => d.ExtraId);
             viewModel.AssignedExtras = new List<AssignedExtra>();
             foreach(var extra in allExtras)
@@ -193,7 +193,7 @@ namespace KwikKwekSnackWeb.Controllers
 
         private void PopulateAllExtras(ref DrinkViewModel viewModel)
         {
-            var allExtras = extraRepo.GetAll();
+            var allExtras = extraRepo.GetAllActive();
             viewModel.AssignedExtras = new List<AssignedExtra>();
             foreach (Extra extra in allExtras)
             {
