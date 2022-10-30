@@ -162,7 +162,10 @@ namespace KwikKwekSnack.Domain.Repositories
 
         public Order Update(Order order)
         {
-            throw new NotImplementedException();
+            ctx.Attach(order);
+            ctx.Orders.Update(order);
+            ctx.SaveChanges();
+            return order;
         }
 
         public List<SnackOrder> GetSnackOrders(int id)
@@ -188,7 +191,7 @@ namespace KwikKwekSnack.Domain.Repositories
         public void CleanUpUnused()
         {
             var unusedOrders = ctx.Orders.Where(o => o.Status == OrderStatusType.NotCreated).Include(s => s.SnackOrders).Include(d => d.DrinkOrders);
-            //include snackorderextras??
+            
             foreach(var order in unusedOrders)
             {
                 ctx.Orders.Remove(order);

@@ -185,14 +185,37 @@ namespace KwikKwekSnackWeb.Controllers
             {
                 return RedirectToAction("CreateSnackOrder");
             }
-            var snackOrders = CreateSnackOrderListFromViewModel(orderViewModel);
-            var drinkOrders = CreateDrinkOrderListFromViewModel(orderViewModel);
-            var order = repo.Create(orderViewModel.Order, snackOrders, drinkOrders, orderViewModel.DeliveryType);     
+            bool emptyOrder = orderViewModel.SnackOrders.Count == 0 && orderViewModel.DrinkOrders.Count == 0;
+
+            if (emptyOrder)
+            {
+                ModelState.AddModelError(string.Empty, "Kan geen lege order aanmaken.");
+                return View(orderViewModel);
+            }
+
+            try
+            {
+                var order = PostOrderToDatabase();
+                viewModel.Order = order;
+            }
+            catch
+            {
+                ModelState.AddModelError(string.Empty, "Fout bij het plaatsen van uw order.");
+                return View(orderViewModel);
+            }
+            
             
             orderViewModel = CreateNewOrderViewModel();
-            return View("Success");
+            return View("Success", viewModel);
         }
 
+        private Order PostOrderToDatabase()
+        {
+            var snackOrders = CreateSnackOrderListFromViewModel(orderViewModel);
+            var drinkOrders = CreateDrinkOrderListFromViewModel(orderViewModel);
+            var order = repo.Create(orderViewModel.Order, snackOrders, drinkOrders, orderViewModel.DeliveryType);
+            return order;
+        }
         private List<SnackOrder> CreateSnackOrderListFromViewModel(OrderViewModel viewModel)
         {
             List<SnackOrder> snackOrders = new List<SnackOrder>();

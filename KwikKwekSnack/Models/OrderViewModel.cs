@@ -2,12 +2,17 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace KwikKwekSnack.Models
 {
     public class OrderViewModel
     {
         private string formattedPrice;
+
+        private string formattedId;
+        
         public Order Order { get; set; }
         public List<PartialDrinkOrder> DrinkOrders { get; set; }
         public List<PartialSnackOrder> SnackOrders { get; set; }
@@ -31,6 +36,35 @@ namespace KwikKwekSnack.Models
             }
             formattedPrice = priceString;
         }
+        public string GetFormattedId()
+        {
+            string str = Order.Id.ToString();
+            formattedId = Regex.Match(str, @"(\d{1,3})$").ToString();
+            return formattedId;
+        }
+        
+        public string GetTranslatedStatus()
+        {
+            var status = Order.Status;
+            switch(status)
+            {
+                case OrderStatusType.NotCreated:
+                    return "Bestelling niet aangemaakt";
+                case OrderStatusType.OrderCreated:
+                    return "Bestelling aangemaakt";
+                case OrderStatusType.InQueue:
+                    return "Bestelling in wachtlijst";
+                case OrderStatusType.BeingMade:
+                    return "Bestelling wordt bereidt";
+                case OrderStatusType.Ready:
+                    return "Bestelling is klaar om op te halen";
+                case OrderStatusType.OrderCompleted:
+                    return "Bestelling voltooid";
+                default:
+                    return "Status onbekend";
+            }            
+        }        
+
     }   
 
     public class PartialDrinkOrder

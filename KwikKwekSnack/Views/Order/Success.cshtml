@@ -1,9 +1,12 @@
-﻿@{
+﻿@model KwikKwekSnack.Models.OrderViewModel
+
+@{
     ViewData["Title"] = "Success";
 }
 
 <div class="row-8">
-    <h1>Uw order is succesvol geplaatst</h1>
+    <h1>Uw order met afhaalnummer @Model.GetFormattedId()  is succesvol geplaatst</h1>
+    <h2>Uw orderstatus: @Model.GetTranslatedStatus()</h2>
 </div>
 <div class="row-4 mt-4">
     <a asp-area="" asp-controller="Home" asp-action="Index">Klik hier om terug te gaan naar de homepagina</a>

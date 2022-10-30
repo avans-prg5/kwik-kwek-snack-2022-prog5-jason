@@ -271,3 +271,8 @@ C:\Users\Jason\Documents\GitHub\kwik-kwek-snack-2022-prog5-jason\KwikKwekSnackCo
 C:\Users\Jason\Documents\GitHub\kwik-kwek-snack-2022-prog5-jason\KwikKwekSnackConsole\obj\Debug\net6.0\KwikKwekSnackConsole.genruntimeconfig.cache
 C:\Users\Jason\Documents\GitHub\kwik-kwek-snack-2022-prog5-jason\KwikKwekSnackConsole\obj\Debug\net6.0\ref\KwikKwekSnackConsole.dll
 C:\Users\Jason\Documents\GitHub\kwik-kwek-snack-2022-prog5-jason\KwikKwekSnackConsole\bin\Debug\net6.0\appsettings.json
+C:\Users\Jason\Documents\GitHub\kwik-kwek-snack-2022-prog5-jason\KwikKwekSnackConsole\bin\Debug\net6.0\Microsoft.AspNetCore.Hosting.Abstractions.dll
+C:\Users\Jason\Documents\GitHub\kwik-kwek-snack-2022-prog5-jason\KwikKwekSnackConsole\bin\Debug\net6.0\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll
+C:\Users\Jason\Documents\GitHub\kwik-kwek-snack-2022-prog5-jason\KwikKwekSnackConsole\bin\Debug\net6.0\Microsoft.AspNetCore.Http.Abstractions.dll
+C:\Users\Jason\Documents\GitHub\kwik-kwek-snack-2022-prog5-jason\KwikKwekSnackConsole\bin\Debug\net6.0\Microsoft.AspNetCore.Http.Features.dll
+C:\Users\Jason\Documents\GitHub\kwik-kwek-snack-2022-prog5-jason\KwikKwekSnackConsole\bin\Debug\net6.0\Microsoft.Extensions.Hosting.Abstractions.dll

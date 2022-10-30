@@ -1,94 +1,115 @@
 ﻿using KwikKwekSnack.Domain;
 using KwikKwekSnack.Domain.Repositories;
-using KwikKwekSnackConsole.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using KwikKwekSnackConsole.Views;
+using Microsoft.Extensions.Configuration;
+
 
 namespace KwikKwekSnackConsole.Controllers
 {
     public class OrderApp
     {
-        const int TICK_DURATION = 8000;
-
+        const int TICK_DURATION_FALLBACK = 5;
+        
+        private readonly IOrderRepo repo;
+        private readonly IConfigurationRoot config;
+        private readonly int tickDuration;
+        private Order? currentOrder;
         private Queue<Order> queue;
         private bool appRunning;
-        private IOrderRepo orderRepo;
-        private Order? currentOrder;
+        private readonly PeriodicTimer timer;
+        private readonly OrderView view;
 
-        public OrderApp(IOrderRepo injectedOrderRepo)
+        public OrderApp(IOrderRepo orderRepo, IConfigurationRoot config)
         {
-            orderRepo = injectedOrderRepo;
+            this.config = config;
+            repo = orderRepo;
+            tickDuration = SetTickDuration();
+            timer = new PeriodicTimer(TimeSpan.FromSeconds(tickDuration));
             queue = new Queue<Order>();
-            appRunning = true;
-            
-            Console.WriteLine("Wachten op orders...");
+            view = new OrderView();
+            appRunning = true;            
+        }      
+
+        private int SetTickDuration()
+        {
+            var tick = config.GetSection("AppSettings")["TickDuration"];
+            try
+            {
+                return Int32.Parse(tick);
+            }
+            catch(Exception ex)
+            {                
+                view.ShowAppSettingsErrorMessage(ex);              
+                return TICK_DURATION_FALLBACK;                
+            }
         }
         public void Run()
-        {            
+        {
+            view.ShowStartupMessage();
             EnqueueNewOrders();
-            currentOrder = queue.Dequeue();
-            
+            currentOrder = queue.Dequeue();            
 
             while (appRunning)
             {
-                if(currentOrder.Status < OrderStatusType.Ready)
-                {
-                    HandleOrder(currentOrder);
-                }
-                else
-                {
-                    currentOrder = queue.Dequeue();
-                }
-                if(queue.Count <= 0 && currentOrder.Status == OrderStatusType.Ready)
+                WorkOnCurrentOrder();
+                if(IsQueueEmpty())
                 {
                     appRunning = false;
                 }
-                ShowOrders();
-                System.Threading.Thread.Sleep(TICK_DURATION);
+                view.Update(currentOrder, queue);
+                System.Threading.Thread.Sleep(tickDuration * 1000);
             }           
         }
-
-        private void ShowOrders()
+        
+        private void WorkOnCurrentOrder()
         {
-            Console.Clear();
-            if (currentOrder != null)
+            if(currentOrder == null)
             {
-                Console.WriteLine(currentOrder.Id + ": " + currentOrder.Status);
-            }            
-            foreach (var order in queue)
-            {
-                Console.WriteLine(order.Id + ": " + order.Status.ToString());
+                return;
             }
-            Console.WriteLine();
+            if (currentOrder.Status < OrderStatusType.Ready)
+            {
+                HandleOrder(currentOrder);
+            }
+            else
+            {
+                currentOrder = queue.Dequeue();
+            }
+        }
+
+        private bool IsQueueEmpty()
+        {
+            if(currentOrder == null)
+            {
+                return queue.Count <= 0;
+            }
+            return queue.Count <= 0 && currentOrder.Status == OrderStatusType.Ready;
         }
 
         private void EnqueueNewOrders()
         {
-            var orders = orderRepo.GetAll().Where(o => o.Status == OrderStatusType.OrderCreated).OrderBy(o => o.CreatedDateTime);
+            var orders = repo.GetAll().Where(o => o.Status != OrderStatusType.OrderCompleted).OrderBy(o => o.CreatedDateTime);
             foreach(var order in orders)
             {
                 queue.Enqueue(order);
+            }
+            if(orders.Count() == 0)
+            {
+                view.ShowEmptyQueueMessage();
             }
         }
 
         private void HandleOrder(Order order)
         {
-            order.Status++;
-            if(order.Status == OrderStatusType.OrderCompleted)
+            try
             {
-                CompleteOrder(order);
+                order.Status++;
+                repo.Update(order);
             }
-            //orderRepo.Update(order);
+            catch(Exception ex)
+            {
+                view.ShowExceptionMessage(ex);
+            }            
         }
-
-        private void CompleteOrder(Order order)
-        {
-            
-        }       
-
     }
 }
