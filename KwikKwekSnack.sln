@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KwikKwekSnackWeb", "KwikKwe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KwikKwekSnack.Domain", "KwikKwekSnack.Domain\KwikKwekSnack.Domain.csproj", "{FAADD224-5CFE-49E2-9C75-49C989860E15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KwikKwekSnackConsole", "KwikKwekSnackConsole\KwikKwekSnackConsole.csproj", "{1FCC5B37-81A4-47FD-B744-28CDB94DF98E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KwikKwekSnackConsole", "KwikKwekSnackConsole\KwikKwekSnackConsole.csproj", "{1FCC5B37-81A4-47FD-B744-28CDB94DF98E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,6 +1,7 @@
 ﻿using KwikKwekSnack.Domain;
 using KwikKwekSnack.Domain.Repositories;
 using KwikKwekSnack.Models;
+using KwikKwekSnackWeb.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +17,7 @@ namespace KwikKwekSnackWeb.Controllers
         readonly ISnackRepo snackRepo;        
         readonly IExtraRepo extraRepo;
         readonly IDrinkSizeRepo sizeRepo;
+        readonly IOrderLogic orderLogic;
 
         static private OrderViewModel orderViewModel;
 
@@ -26,8 +28,8 @@ namespace KwikKwekSnackWeb.Controllers
            snackRepo = injectedSnackRepository;
            extraRepo = injectedExtraRepository;
            sizeRepo = injectedDrinkSizeRepo;
+           orderLogic = new OrderLogic();
         }
-
         public ActionResult CreateSnackOrder()
         {            
             OrderViewModel viewModel = new OrderViewModel();
@@ -43,7 +45,6 @@ namespace KwikKwekSnackWeb.Controllers
             PopulateSnackList(ref viewModel);
             return View(viewModel);
         }       
-
         public ActionResult CreateDrinkOrder()
         {            
             if (orderViewModel == null)
@@ -54,8 +55,6 @@ namespace KwikKwekSnackWeb.Controllers
             PopulateDrinkList(ref orderViewModel);
             return View(orderViewModel);
         }
-        
-
         [HttpGet]
         public ActionResult AddSnack(int? snackId)
         {
@@ -87,7 +86,7 @@ namespace KwikKwekSnackWeb.Controllers
                 var snack = snackRepo.Get(viewModel.Snack.Id);
                 viewModel.Snack = snack;
                 SetChosenSnackExtras(viewModel);
-                viewModel.SetFormattedPrice(CalculateSnackOrderPrice(viewModel));
+                viewModel.SetFormattedPrice(orderLogic.CalculateSnackOrderPrice(viewModel));
                 orderViewModel.SnackOrders.Add(viewModel);
                 orderViewModel.SetFormattedPrice(CalculateTotalOrderPrice(orderViewModel));
             }
@@ -98,7 +97,6 @@ namespace KwikKwekSnackWeb.Controllers
 
             return RedirectToAction("CreateSnackOrder");
         }
-
         [HttpGet]
         public ActionResult AddDrink(int? drinkId)
         {
@@ -117,7 +115,6 @@ namespace KwikKwekSnackWeb.Controllers
             PopulateAvailableDrinkExtras(ref drinkOrder);
             return View(drinkOrder);
         }
-
         [HttpPost]
         public ActionResult AddDrink(PartialDrinkOrder viewModel)
         {
@@ -132,7 +129,7 @@ namespace KwikKwekSnackWeb.Controllers
                 viewModel.Drink = drink;                
                 SetChosenDrinkExtras(viewModel);
                 double priceMultiplier = GetDrinkSizeMultiplier(viewModel);
-                viewModel.SetFormattedPrice(CalculateDrinkOrderPrice(viewModel, priceMultiplier));
+                viewModel.SetFormattedPrice(orderLogic.CalculateDrinkOrderPrice(viewModel, priceMultiplier));
                 orderViewModel.DrinkOrders.Add(viewModel);
                 orderViewModel.SetFormattedPrice(CalculateTotalOrderPrice(orderViewModel));
             }
@@ -143,7 +140,6 @@ namespace KwikKwekSnackWeb.Controllers
 
             return RedirectToAction("CreateDrinkOrder");
         }
-
         public ActionResult RemoveSnackOrder(int snackOrderIndex)
         {
             TempData["OrderPageUrl"] = Request.Headers["Referer"].ToString();
@@ -159,7 +155,6 @@ namespace KwikKwekSnackWeb.Controllers
             }
             return Redirect(TempData["OrderPageUrl"].ToString());
         }
-
         public ActionResult RemoveDrinkOrder(int drinkOrderIndex)
         {
             TempData["OrderPageUrl"] = Request.Headers["Referer"].ToString();
@@ -175,13 +170,11 @@ namespace KwikKwekSnackWeb.Controllers
             }
             return Redirect(TempData["OrderPageUrl"].ToString());
         }
-
         [HttpGet]
         public ActionResult Overview()
         {
             return View(orderViewModel);
         }
-
         [HttpPost]
         public ActionResult Overview(OrderViewModel viewModel)
         {
@@ -212,7 +205,6 @@ namespace KwikKwekSnackWeb.Controllers
             orderViewModel = CreateNewOrderViewModel();
             return View("Success", viewModel);
         }
-
         private Order PostOrderToDatabase()
         {
             var snackOrders = CreateSnackOrderListFromViewModel(orderViewModel);
@@ -250,7 +242,6 @@ namespace KwikKwekSnackWeb.Controllers
             }
             return snackOrders;
         }
-
         private List<DrinkOrder> CreateDrinkOrderListFromViewModel(OrderViewModel viewModel)
         {
             List<DrinkOrder> drinkOrders = new List<DrinkOrder>();
@@ -268,6 +259,7 @@ namespace KwikKwekSnackWeb.Controllers
                 DrinkOrder drinkOrder = new DrinkOrder();
                 drinkOrder.Drink = drinkOrderViewModel.Drink;
                 drinkOrder.ChosenExtras = new List<DrinkOrderExtra>();
+                drinkOrder.DrinkSize = sizeRepo.Get((int)drinkOrderViewModel.DrinkSize + 1);
                 foreach (var id in drinkOrderViewModel.ChosenExtraIds)
                 {
                     var extra = extraRepo.Get(id);
@@ -281,7 +273,6 @@ namespace KwikKwekSnackWeb.Controllers
             }
             return drinkOrders;
         }
-
         private void SetChosenSnackExtras(PartialSnackOrder viewModel)
         {
             if (viewModel.ChosenExtraIds == null)
@@ -319,7 +310,6 @@ namespace KwikKwekSnackWeb.Controllers
                 SetDrinkExtrasFromIds(viewModel, viewModel.ChosenExtraIds);
             }
         }
-
         private void SetSnackExtrasFromIds(PartialSnackOrder snackOrder, List<int> extraIds)
         {
             snackOrder.ChosenExtras = new List<Extra>();
@@ -336,7 +326,6 @@ namespace KwikKwekSnackWeb.Controllers
                 }
             }
         }
-
         private void SetDrinkExtrasFromIds(PartialDrinkOrder drinkOrder, List<int> extraIds)
         {
             drinkOrder.ChosenExtras = new List<Extra>();
@@ -352,66 +341,21 @@ namespace KwikKwekSnackWeb.Controllers
                     continue;
                 }
             }
-        }
-
-        private double CalculateSnackOrderPrice(PartialSnackOrder snackOrder)
-        {
-            double price = 0;
-            price += snackOrder.Snack.StandardPrice;
-            if (snackOrder.ChosenExtras != null)
-            {
-                foreach (var extra in snackOrder.ChosenExtras)
-                {
-                    try
-                    {
-                        price += extra.Price;
-                    }
-                    catch
-                    {
-                        continue;
-                    }
-                }
-            }
-            return price;
-        }
-
-        private double CalculateDrinkOrderPrice(PartialDrinkOrder drinkOrder, double sizeMultiplier)
-        {
-            double price = 0;
-            price += drinkOrder.Drink.MinimalPrice;
-            price *= sizeMultiplier;
-            if (drinkOrder.ChosenExtras != null)
-            {
-                foreach (var extra in drinkOrder.ChosenExtras)
-                {
-                    try
-                    {
-                        price += extra.Price;
-                    }
-                    catch
-                    {
-                        continue;
-                    }
-                }
-            }
-            return price;
-        }
-
+        }        
         private double CalculateTotalOrderPrice(OrderViewModel viewModel)
         {
             double price = 0;
             foreach(var snackOrder in viewModel.SnackOrders)
             {
-                price += CalculateSnackOrderPrice(snackOrder);
+                price += orderLogic.CalculateSnackOrderPrice(snackOrder);
             }
             foreach (var drinkOrder in viewModel.DrinkOrders)
             {
                 var priceMultiplier = GetDrinkSizeMultiplier(drinkOrder);
-                price += CalculateDrinkOrderPrice(drinkOrder, priceMultiplier);
+                price += orderLogic.CalculateDrinkOrderPrice(drinkOrder, priceMultiplier);
             }
             return price;
         }
-
         private void PopulateSnackList(ref OrderViewModel viewModel)
         {
             var allSnacks = snackRepo.GetAllActive();
@@ -421,7 +365,6 @@ namespace KwikKwekSnackWeb.Controllers
                 viewModel.AllSnacks.Add(snack);
             }
         }
-
         private void PopulateDrinkList(ref OrderViewModel viewModel)
         {
             var allDrinks = drinkRepo.GetAllActive();
@@ -431,7 +374,6 @@ namespace KwikKwekSnackWeb.Controllers
                 viewModel.AllDrinks.Add(drink);
             }
         }
-
         private void PopulateAvailableSnackExtras(ref PartialSnackOrder viewModel)
         {
             var allExtrasOfSnack = snackRepo.GetExtras(viewModel.Snack.Id);

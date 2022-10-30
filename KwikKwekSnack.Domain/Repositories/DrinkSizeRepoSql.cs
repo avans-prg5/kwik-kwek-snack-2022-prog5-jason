@@ -12,30 +12,23 @@ namespace KwikKwekSnack.Domain.Repositories
         public DrinkSizeRepoSql(KwikKwekSnackContext context)
         {
             ctx = context;
-        }
-        public DrinkSize Create(DrinkSize drinkSize)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
+        }        
 
         public DrinkSize Get(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return ctx.DrinkSizes.First(d => d.Id == id);
+            }
+            catch
+            {
+                return ctx.DrinkSizes.FirstOrDefault(d => d.Id == 1);
+            }          
         }
 
         public List<DrinkSize> GetAll()
         {
             return ctx.DrinkSizes.ToList();
-        }
-
-        public DrinkSize Update(DrinkSize drinkSize)
-        {
-            throw new NotImplementedException();
-        }
+        }        
     }
 }

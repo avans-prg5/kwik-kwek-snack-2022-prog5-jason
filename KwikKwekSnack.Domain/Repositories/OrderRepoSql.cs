@@ -113,7 +113,7 @@ namespace KwikKwekSnack.Domain.Repositories
                 drinkOrderExtras.Add(new DrinkOrderExtra { ExtraId = extra.Id, DrinkOrderId = drinkOrder.DrinkOrderId });
             }
             var drink = ctx.Drinks.FirstOrDefault(d => d.Id == drinkOrder.Drink.Id);
-            var drinkSize = ctx.DrinkSizes.FirstOrDefault(s => s.Id == 1);
+            var drinkSize = drinkOrder.DrinkSize;
             order.DrinkOrders.Add(new DrinkOrder { Drink = drink, OrderId = order.Id, ChosenExtras = drinkOrderExtras, DrinkSize = drinkSize });
         }
 
