@@ -9,12 +9,14 @@ namespace KwikKwekSnackConsole.Views
         private List<OrderViewModelConsole> orderViewModels;
         private OrderViewModelConsole currentOrder;
         private readonly ConsoleLogic consoleLogic;
+        private string lastCompletedOrderNumber;
 
         public OrderView()
         {
             consoleLogic = new ConsoleLogic();
             orderViewModels = new List<OrderViewModelConsole>();
             currentOrder = new OrderViewModelConsole();
+            lastCompletedOrderNumber = "";
         }
 
         public void Update(Order currOrder, Queue<Order> queue)
@@ -32,17 +34,38 @@ namespace KwikKwekSnackConsole.Views
             Console.Clear();
             if (currentOrder != null)
             {
-                Console.WriteLine(currentOrder.GetOrderNumber() + ": " + currentOrder.Status);
+                Console.WriteLine("Huidige order: ");
+                ShowOrder(currentOrder);                
                 if(currentOrder.Status == OrderStatusType.Ready.ToString())
                 {
+                    lastCompletedOrderNumber = currentOrder.GetOrderNumber();
                     ShowOrderCompletionMessage(currentOrder);
                 }
+                Console.WriteLine();
             }
+            var amountOrdersToShow = Math.Min(6, orderViewModels.Count);
+            for(int i =0; i < amountOrdersToShow; i++)
+            {
+                var order = orderViewModels[i];
+                ShowOrder(order);
+            }
+
+
             foreach (var order in orderViewModels)
             {
-                Console.WriteLine(order.GetOrderNumber() + ": " + order.Status);
+               
+            }
+            if(lastCompletedOrderNumber.Length > 0)
+            {
+                Console.WriteLine("Laatste af te halen order: " + lastCompletedOrderNumber);
             }
             Console.WriteLine();
+        }
+
+        private void ShowOrder(OrderViewModelConsole order)
+        {
+            Console.Write("Order: " + order.GetOrderNumber());
+            Console.WriteLine(", " + "Status: " + order.Status);
         }
 
         public void ShowStartupMessage()

@@ -91,6 +91,7 @@ namespace KwikKwekSnackConsole.Controllers
             var orders = repo.GetAll().Where(o => o.Status != OrderStatusType.OrderCompleted).OrderBy(o => o.CreatedDateTime);
             foreach(var order in orders)
             {
+                order.Status = OrderStatusType.InQueue;
                 queue.Enqueue(order);
             }
             if(orders.Count() == 0)
