@@ -74,7 +74,6 @@ namespace KwikKwekSnack.Models
         {
             return formattedOrderCost;
         }
-
         public void SetFormattedPrice(double value)
         {
             string priceString = "€";
@@ -90,6 +89,15 @@ namespace KwikKwekSnack.Models
         public List<AssignedExtra> AvailableExtras { get; set; } //All extras for the drink that a user can choose from.
         public List<int> ChosenExtraIds { get; set; } //The extraIds that the user chose to add to their order (for checkbox). 
         public List<Extra> ChosenExtras { get; set; } //The extras that the user chose to add to their order (for sidebar).
+        public List<string> FormattedPrices { get; set; }
+        public DrinkSizeType DrinkSize { get; set; }
+        public enum DrinkSizeType
+        {
+            S,
+            M,
+            L,
+            XL
+        }
     }
 
     public class PartialSnackOrder

@@ -12,57 +12,90 @@
 
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-6 mw-50">
+                    <div class="col-12">
                         <div class="flex-row justify-content-start">
-                        <h2>@Model.Drink.Name</h2>
+                        <h2>@Model.Drink.Name</h2>                        
                         @{
-                            var snackPriceString = "€" + Model.Drink.MinimalPrice;
-                            <p></p>
-                            @: <h3>@snackPriceString</h3>
-                         } 
-				        @{
+                            string source;
                             if(Model.Drink.ImageURL == null || Model.Drink.ImageURL == "")
-				            {				
-                                <img src= "https://www.clker.com/cliparts/q/L/P/Y/t/6/no-image-available-md.png" class="img-fluid" style="width: 320px; height: auto;" alt="Geen afbeelding beschikbaar"/>									                                   
-				            }
-				            else
-				            {									
-                                <img src= "@Url.Content(Model.Drink.ImageURL)" class="img-fluid" style="width: 320px; height: auto;" alt="Geen afbeelding beschikbaar" />									   
+                            {
+                                source = "https://www.clker.com/cliparts/q/L/P/Y/t/6/no-image-available-md.png";                                    
+                            }
+                            else
+                            {
+                                source = @Url.Content(Model.Drink.ImageURL);                                    								   
 				            }
                         }
+                            <div class="row" id="images-grid">
+                                <div class="col-3">
+                                    <div class="row h-75">
+                                        
+                                        <h4>@Model.FormattedPrices[0]</h4>
+                                        <img src= "@source" class="img-fluid h-25" style="width: auto; height: auto;" alt="Geen afbeelding beschikbaar" />
+                                    </div>
+                                    <div class="row">
+                                        <input type="radio" asp-for="@Model.DrinkSize" value="@PartialDrinkOrder.DrinkSizeType.S" />S<br/>
+                                    </div>                                            
+                                </div>
+                                <div class="col-3">
+                                    <div class="row h-75">
+                                        <h4>@Model.FormattedPrices[1]</h4>
+                                        <img src= "@source" class="img-fluid h-50" style="width: auto; height: auto;" alt="Geen afbeelding beschikbaar" />
+                                    </div>
+                                    <div class="row">
+                                        <input type="radio" asp-for="@Model.DrinkSize" value="@PartialDrinkOrder.DrinkSizeType.M" />M<br/>
+                                    </div>                                    
+                                </div>
+                                <div class="col-3">
+                                    <div class="row h-75">
+                                        <h4>@Model.FormattedPrices[2]</h4>
+                                        <img src= "@source" class="img-fluid h-75" style="width: auto; height: auto;" alt="Geen afbeelding beschikbaar" />
+                                    </div>
+                                    <div class="row">
+                                        <input type="radio" asp-for="@Model.DrinkSize" value="@PartialDrinkOrder.DrinkSizeType.L" />L<br/>
+                                    </div>                             
+                                </div>
+                                <div class="col-3">
+                                    <div class="row h-75">
+                                        <h4>@Model.FormattedPrices[3]</h4>
+                                        <img src= "@source" class="img-fluid h-100" style="width: auto; height: auto;" alt="Geen afbeelding beschikbaar" />
+                                    </div>
+                                    <div class="row">
+                                        <input type="radio" asp-for="@Model.DrinkSize" value="@PartialDrinkOrder.DrinkSizeType.XL" />XL<br/>
+                                    </div>                                     
+                                </div>
+                            </div>                     
                         </div>              
                     </div>
 
                     <div class="col-6 h-75 w-50">                        
                         <div class="row-8">
-
-                            <div class="form-group p-2">
-                        
+                            <div class="form-group p-2">                            
                                 @{
-                                    int i = 0;
-                                    if(Model.AvailableExtras == null)
+                                int i = 0;
+                                if(Model.AvailableExtras == null)
+                                {
+                                    Model.AvailableExtras = new List<AssignedExtra>();
+                                }
+
+                                foreach(var extra in Model.AvailableExtras)
+                                {
+                                    var extraPriceString = " €" + extra.Price;
+
+                                    if(i++ % 3 == 0)
                                     {
-                                        Model.AvailableExtras = new List<AssignedExtra>();
+                                                    @:</div><div class="row">
                                     }
-
-                                    foreach(var extra in Model.AvailableExtras)
-                                    {
-                                        var extraPriceString = " €" + extra.Price;
-
-                                        if(i++ % 3 == 0)
-                                        {
-                                            @:</div><div class="row">
-                                        }
                            
-                                        @:<div class="col-4 p-2">
-                                            <input type="checkbox"
-                                                name="ChosenExtraIds"                                     
-                                                value="@extra.ExtraId"
-                                                @(Html.Raw(extra.Assigned ? "checked=\"checked\"" : "")) />
-                                            @: @extra.Name
-                                            @: @extraPriceString
-                                        @:</div>
-                                    }                    
+                                                @:<div class="col-4 p-2">
+                                                    <input type="checkbox"
+                                                        name="ChosenExtraIds"                                     
+                                                        value="@extra.ExtraId"
+                                                        @(Html.Raw(extra.Assigned ? "checked=\"checked\"" : "")) />
+                                                    @: @extra.Name
+                                                    @: @extraPriceString
+                                                @:</div>
+                                }                    
                                 }
                             </div>
                         </div>

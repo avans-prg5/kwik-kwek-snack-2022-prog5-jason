@@ -30,7 +30,7 @@ namespace KwikKwekSnack.Domain.Repositories
 
         public List<DrinkSize> GetAll()
         {
-            throw new NotImplementedException();
+            return ctx.DrinkSizes.ToList();
         }
 
         public DrinkSize Update(DrinkSize drinkSize)
