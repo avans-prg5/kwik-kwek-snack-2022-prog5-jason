@@ -9,6 +9,7 @@
       "KwikKwekSnackWeb/1.0.0": {
         "dependencies": {
           "KwikKwekSnack.Domain": "1.0.0",
+          "KwikKwekSnackConsole": "1.0.0",
           "Microsoft.EntityFrameworkCore.Design": "6.0.9",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.9",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.10"
@@ -2297,6 +2298,14 @@
         "runtime": {
           "KwikKwekSnack.Domain.dll": {}
         }
+      },
+      "KwikKwekSnackConsole/1.0.0": {
+        "dependencies": {
+          "KwikKwekSnack.Domain": "1.0.0"
+        },
+        "runtime": {
+          "KwikKwekSnackConsole.dll": {}
+        }
       }
     }
   },
@@ -3553,6 +3562,11 @@
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
     },
     "KwikKwekSnack.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "KwikKwekSnackConsole/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

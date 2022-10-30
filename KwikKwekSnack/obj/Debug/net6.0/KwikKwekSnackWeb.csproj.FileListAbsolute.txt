@@ -528,3 +528,8 @@ C:\Users\Jason\Documents\GitHub\kwik-kwek-snack-2022-prog5-jason\KwikKwekSnack\o
 C:\Users\Jason\Documents\GitHub\kwik-kwek-snack-2022-prog5-jason\KwikKwekSnack\obj\Debug\net6.0\KwikKwekSnackWeb.pdb
 C:\Users\Jason\Documents\GitHub\kwik-kwek-snack-2022-prog5-jason\KwikKwekSnack\obj\Debug\net6.0\KwikKwekSnackWeb.genruntimeconfig.cache
 C:\Users\Jason\Documents\GitHub\kwik-kwek-snack-2022-prog5-jason\KwikKwekSnack\obj\Debug\net6.0\ref\KwikKwekSnackWeb.dll
+C:\Users\Jason\Documents\GitHub\kwik-kwek-snack-2022-prog5-jason\KwikKwekSnack\bin\Debug\net6.0\KwikKwekSnackConsole.deps.json
+C:\Users\Jason\Documents\GitHub\kwik-kwek-snack-2022-prog5-jason\KwikKwekSnack\bin\Debug\net6.0\KwikKwekSnackConsole.runtimeconfig.json
+C:\Users\Jason\Documents\GitHub\kwik-kwek-snack-2022-prog5-jason\KwikKwekSnack\bin\Debug\net6.0\KwikKwekSnackConsole.exe
+C:\Users\Jason\Documents\GitHub\kwik-kwek-snack-2022-prog5-jason\KwikKwekSnack\bin\Debug\net6.0\KwikKwekSnackConsole.dll
+C:\Users\Jason\Documents\GitHub\kwik-kwek-snack-2022-prog5-jason\KwikKwekSnack\bin\Debug\net6.0\KwikKwekSnackConsole.pdb

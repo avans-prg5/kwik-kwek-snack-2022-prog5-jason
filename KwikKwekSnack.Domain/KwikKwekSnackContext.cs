@@ -11,7 +11,7 @@ namespace KwikKwekSnack.Domain
     public class KwikKwekSnackContext : DbContext
     {
 
-        public KwikKwekSnackContext(DbContextOptions<KwikKwekSnackContext> options) : base(options)
+        public KwikKwekSnackContext(DbContextOptions options) : base(options)
         {
 
         }

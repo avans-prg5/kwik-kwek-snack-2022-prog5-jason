@@ -157,7 +157,7 @@ namespace KwikKwekSnack.Domain.Repositories
 
         public List<Order> GetAll()
         {
-            throw new NotImplementedException();
+            return ctx.Orders.Include(s => s.SnackOrders).Include(d => d.DrinkOrders).ToList();
         }
 
         public Order Update(Order order)
