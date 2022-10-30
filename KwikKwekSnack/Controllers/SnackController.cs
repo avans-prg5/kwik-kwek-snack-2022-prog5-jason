@@ -91,7 +91,9 @@ namespace KwikKwekSnackWeb.Controllers
         private SnackViewModel CreateEditViewModel(int id)
         {
             var viewModel = new SnackViewModel();
-            viewModel.Snack = repo.Get(id);
+            var snack = repo.Get(id);
+            viewModel.Snack = snack;
+            viewModel.SetFormattedPrice(snack.StandardPrice);
             PopulateAssignedExtras(ref viewModel);
             return viewModel;
         }

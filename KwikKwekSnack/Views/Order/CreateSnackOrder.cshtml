@@ -65,7 +65,7 @@
 								int snackOrderIndex = 0;
 								foreach (var snackOrder in Model.SnackOrders)
 								{
-									double cost = snackOrder.OrderCost;
+									string cost = snackOrder.GetFormattedPrice() ?? "€0.00";
 
 									<li class="list-group-item mb-2 shadow bg-body rounded">
 										<div class="row">
@@ -78,7 +78,7 @@
 															@nameString                                            
 														}
 														<p>
-															€@cost
+															@cost
 														</p>                                        
 													}
 											</div>
@@ -95,7 +95,7 @@
 								int drinkOrderIndex = 0;
 								foreach (var drinkOrder in Model.DrinkOrders)
 								{
-									double cost = drinkOrder.OrderCost;
+									string cost = drinkOrder.GetFormattedPrice() ?? "€0.00";
 
 									<li class="list-group-item mb-2 shadow bg-body rounded">
 										<div class="row">
@@ -108,7 +108,7 @@
 												@nameString                                           
 											}
 											<p>
-												€@cost
+												@cost
 											</p> 
 										}
 											</div>
@@ -123,6 +123,14 @@
 						}
 							
 						</ul>
+					</div>
+					<div class="font-weight-light">
+						<p>
+							@{
+								string price = Model.GetFormattedPrice() ?? "€0.00";
+							}
+							Totale prijs: @price
+						</p>                
 					</div>
 				</div>
 		</div>

@@ -13,20 +13,20 @@
 		            {
                         foreach(var snackOrder in Model.SnackOrders)
                         {
-                        <li class="list-group-item mb-2 shadow bg-body rounded">
-                            <div class="row">
-                                <div class="col-8 w-75 font-weight-light">
-                                    @snackOrder.Snack.Name
-                                    @{
+                                <li class="list-group-item mb-2 shadow bg-body rounded">
+                                    <div class="row">
+                                        <div class="col-8 w-75 font-weight-light">
+                                            @snackOrder.Snack.Name
+                                            @{
                                         foreach (var extra in snackOrder.ChosenExtras)
                                         {
                                             var nameString = "+ " + extra.Name;
-                                            @nameString
+                                                            @nameString
                                         }                                    
-                                    }
-                                </div>
-                            </div>
-                        </li>
+                                            }
+                                        </div>
+                                    </div>
+                                </li>
                         }
                     }
                
@@ -35,26 +35,34 @@
                     {
                         foreach (var drinkOrder in Model.DrinkOrders)
                         {
-                            <li class="list-group-item mb-2 shadow bg-body rounded">
-                                <div class="row">
-                                    <div class="col-8 w-75 font-weight-light">
-                                        @drinkOrder.Drink.Name
-                                        @{
+                                    <li class="list-group-item mb-2 shadow bg-body rounded">
+                                        <div class="row">
+                                            <div class="col-8 w-75 font-weight-light">
+                                                @drinkOrder.Drink.Name
+                                                @{
                                             foreach (var extra in drinkOrder.ChosenExtras)
                                             {
                                                 var nameString = "+ " + extra.Name;
-                                                @nameString
+                                                                @nameString
                                             }
-                                        }
-                                    </div>
-                                </div>
-                            </li>
+                                                }
+                                            </div>
+                                        </div>
+                                </li>
+                            }
                         }
+
                     }
-                
-                }
                 </ul>
-            </div>        
+            </div>
+            <div class="font-weight-light">
+                <p>
+                    @{
+                        string price = Model.GetFormattedPrice() ?? "€0.00";
+                    }
+                    Totale prijs: @price
+                </p>                
+            </div>
         </div>
         <div class="col-md-4">        
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>

@@ -90,7 +90,9 @@ namespace KwikKwekSnackWeb.Controllers
         private DrinkViewModel CreateEditViewModel(int id)
         {
             var viewModel = new DrinkViewModel();
-            viewModel.Drink = repo.Get(id);
+            var drink = repo.Get(id);
+            viewModel.Drink = drink;
+            viewModel.SetFormattedPrice(drink.MinimalPrice);
             PopulateAssignedExtras(ref viewModel);
             return viewModel;
         }

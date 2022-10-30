@@ -4,6 +4,7 @@ using KwikKwekSnack.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KwikKwekSnack.Domain.Migrations
 {
     [DbContext(typeof(KwikKwekSnackContext))]
-    partial class KwikKwekSnackContextModelSnapshot : ModelSnapshot
+    [Migration("20221030161913_added_active_table_and_updated_seed")]
+    partial class added_active_table_and_updated_seed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

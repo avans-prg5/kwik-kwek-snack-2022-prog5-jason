@@ -85,8 +85,9 @@ namespace KwikKwekSnackWeb.Controllers
                 var snack = snackRepo.Get(viewModel.Snack.Id);
                 viewModel.Snack = snack;
                 SetChosenSnackExtras(viewModel);
-                viewModel.OrderCost = CalculateSnackOrderPrice(viewModel);
+                viewModel.SetFormattedPrice(CalculateSnackOrderPrice(viewModel));
                 orderViewModel.SnackOrders.Add(viewModel);
+                orderViewModel.SetFormattedPrice(CalculateTotalOrderPrice(orderViewModel));
             }
             catch
             {
@@ -127,8 +128,9 @@ namespace KwikKwekSnackWeb.Controllers
                 var drink = drinkRepo.Get(viewModel.Drink.Id);
                 viewModel.Drink = drink;
                 SetChosenDrinkExtras(viewModel);
-                viewModel.OrderCost = CalculateDrinkOrderPrice(viewModel);
+                viewModel.SetFormattedPrice(CalculateDrinkOrderPrice(viewModel));
                 orderViewModel.DrinkOrders.Add(viewModel);
+                orderViewModel.SetFormattedPrice(CalculateTotalOrderPrice(orderViewModel));
             }
             catch
             {
@@ -145,6 +147,7 @@ namespace KwikKwekSnackWeb.Controllers
             {
                 var snackOrderToRemove = orderViewModel.SnackOrders[snackOrderIndex];
                 orderViewModel.SnackOrders.Remove(snackOrderToRemove);
+                orderViewModel.SetFormattedPrice(CalculateTotalOrderPrice(orderViewModel));
             }
             catch
             {
@@ -160,6 +163,7 @@ namespace KwikKwekSnackWeb.Controllers
             {
                 var drinkOrderToRemove = orderViewModel.DrinkOrders[drinkOrderIndex];
                 orderViewModel.DrinkOrders.Remove(drinkOrderToRemove);
+                orderViewModel.SetFormattedPrice(CalculateTotalOrderPrice(orderViewModel));
             }
             catch
             {
@@ -189,7 +193,7 @@ namespace KwikKwekSnackWeb.Controllers
             return View("Success");
         }
 
-        public List<SnackOrder> CreateSnackOrderListFromViewModel(OrderViewModel viewModel)
+        private List<SnackOrder> CreateSnackOrderListFromViewModel(OrderViewModel viewModel)
         {
             List<SnackOrder> snackOrders = new List<SnackOrder>();
             if(viewModel.SnackOrders == null)
@@ -220,7 +224,7 @@ namespace KwikKwekSnackWeb.Controllers
             return snackOrders;
         }
 
-        public List<DrinkOrder> CreateDrinkOrderListFromViewModel(OrderViewModel viewModel)
+        private List<DrinkOrder> CreateDrinkOrderListFromViewModel(OrderViewModel viewModel)
         {
             List<DrinkOrder> drinkOrders = new List<DrinkOrder>();
             if (viewModel.DrinkOrders == null)
@@ -426,7 +430,6 @@ namespace KwikKwekSnackWeb.Controllers
             orderViewModel = viewModel;
             return viewModel;
         }
-
         private OrderViewModel CreateNewOrderViewModel()
         {
             OrderViewModel newViewModel = new OrderViewModel();
