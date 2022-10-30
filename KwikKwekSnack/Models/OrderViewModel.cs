@@ -11,12 +11,21 @@ namespace KwikKwekSnack.Models
     {
         private string formattedPrice;
 
+        /// <summary>
+        /// The orderID, formatted as an order number. Shows the last 1-3 digits.
+        /// </summary>
         private string formattedId;
         
         public Order Order { get; set; }
         public List<PartialDrinkOrder> DrinkOrders { get; set; }
         public List<PartialSnackOrder> SnackOrders { get; set; }
+        /// <summary>
+        /// All available drinks a user can choose to order from.
+        /// </summary>
         public List<Drink> AllDrinks { get; set; }
+        /// <summary>
+        /// All available snacks a user can choose to order from.
+        /// </summary>
         public List<Snack> AllSnacks { get; set; }
         public OrderDeliveryType DeliveryType { get; set; }
 
@@ -85,10 +94,22 @@ namespace KwikKwekSnack.Models
             }
             formattedOrderCost = priceString;
         }
-        public Drink Drink { get; set; }        
-        public List<AssignedExtra> AvailableExtras { get; set; } //All extras for the drink that a user can choose from.
-        public List<int> ChosenExtraIds { get; set; } //The extraIds that the user chose to add to their order (for checkbox). 
-        public List<Extra> ChosenExtras { get; set; } //The extras that the user chose to add to their order (for sidebar).
+        public Drink Drink { get; set; }
+        /// <summary>
+        /// All extras for the drink that a user can choose from.
+        /// </summary>
+        public List<AssignedExtra> AvailableExtras { get; set; }
+        /// <summary>
+        /// The extraIds that the user chose to add to their order (for checkbox). 
+        /// </summary>
+        public List<int> ChosenExtraIds { get; set; }
+        /// <summary>
+        /// The extras that the user chose to add to their order (for sidebar).
+        /// </summary>
+        public List<Extra> ChosenExtras { get; set; }
+        /// <summary>
+        /// The prices from low to high for all the different drink sizes, formatted as a string
+        /// </summary>
         public List<string> FormattedPrices { get; set; }
         public DrinkSizeType DrinkSize { get; set; }
         public enum DrinkSizeType
@@ -119,9 +140,18 @@ namespace KwikKwekSnack.Models
             }
             formattedOrderCost = priceString;
         }
-        public Snack Snack { get; set; }        
+        public Snack Snack { get; set; }
+        /// <summary>
+        /// All extras for the snack that a user can choose from.
+        /// </summary>
         public List<AssignedExtra> AvailableExtras { get; set; }
+        /// <summary>
+        /// The extraIds that the user chose to add to their order (for checkbox). 
+        /// </summary>
         public List<int> ChosenExtraIds { get; set; }
+        /// <summary>
+        /// The extras that the user chose to add to their order (for sidebar).
+        /// </summary>
         public List<Extra> ChosenExtras { get; set; }
     }
 }
